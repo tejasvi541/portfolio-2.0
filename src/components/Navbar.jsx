@@ -11,7 +11,6 @@ const links = [
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
   { url: "/contact", title: "Contact" },
-  { url: "/resume", title: "Resume" },
 ];
 
 const Navbar = () => {
@@ -89,24 +88,46 @@ const Navbar = () => {
         </Link>
       </div>
       {/* SOCIAL */}
-      <div className="hidden md:flex gap-4 w-1/3">
-        <Link href="/">
-          <Image src="/github.png" alt="" width={24} height={24} />
+      <div className="hidden md:flex gap-5 w-1/3">
+        <Link
+          href="https://github.com/tejasvi541/"
+          rel="noopener noreferrer"
+          target="_blank">
+          <Image src="/github.png" alt="" width={32} height={32} />
         </Link>
-        <Link href="/">
-          <Image src="/dribbble.png" alt="" width={24} height={24} />
+        <Link
+          href="https://www.linkedin.com/in/t3jasvi/"
+          rel="noopener noreferrer"
+          target="_blank">
+          <Image src="/linkedin.png" alt="" width={30} height={30} />
         </Link>
-        <Link href="/">
-          <Image src="/instagram.png" alt="" width={24} height={24} />
+        <Link
+          href="https://www.instagram.com/tejasvi.__/"
+          rel="noopener noreferrer"
+          target="_blank">
+          <Image src="/instagram.png" alt="" width={30} height={30} />
         </Link>
-        <Link href="/">
-          <Image src="/facebook.png" alt="" width={24} height={24} />
+        <Link
+          href="https://twitter.com/weinsimulation"
+          rel="noopener noreferrer"
+          target="_blank">
+          <Image src="/x.png" alt="" width={30} height={30} />
         </Link>
-        <Link href="/">
-          <Image src="/pinterest.png" alt="" width={24} height={24} />
+        <Link
+          href="https://www.facebook.com/t3jasv"
+          rel="noopener noreferrer"
+          target="_blank">
+          <Image src="/facebook.png" alt="" width={30} height={30} />
         </Link>
-        <Link href="/">
-          <Image src="/linkedin.png" alt="" width={24} height={24} />
+        <Link
+          href="https://www.facebook.com/t3jasv"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="text-sm bg-black rounded-md p-1 font-semibold flex
+          items-center justify-center">
+          <span className="w-20 h-8 rounded bg-white text-slate-500 flex items-center justify-center">
+            Resume
+          </span>
         </Link>
       </div>
       {/* RESPONSIVE MENU */}
