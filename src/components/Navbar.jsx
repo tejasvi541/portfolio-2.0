@@ -11,6 +11,10 @@ const links = [
   { url: "/about", title: "About" },
   { url: "/portfolio", title: "Portfolio" },
   { url: "/contact", title: "Contact" },
+  {
+    url: "https://www.dropbox.com/scl/fi/2ocu8ompjf6v5374r1xgr/Resume_Tejasvi_Tech.pdf?rlkey=cyifgx9ii3tuulz7stxkh0sma&dl=0",
+    title: "Resume",
+  },
 ];
 
 const Navbar = () => {
@@ -119,16 +123,6 @@ const Navbar = () => {
           target="_blank">
           <Image src="/facebook.png" alt="" width={30} height={30} />
         </Link>
-        <Link
-          href="https://www.facebook.com/t3jasv"
-          rel="noopener noreferrer"
-          target="_blank"
-          className="text-sm bg-black rounded-md p-1 font-semibold flex
-          items-center justify-center">
-          <span className="w-20 h-8 rounded bg-white text-slate-500 flex items-center justify-center">
-            Resume
-          </span>
-        </Link>
       </div>
       {/* RESPONSIVE MENU */}
       <div className="md:hidden">
@@ -161,7 +155,16 @@ const Navbar = () => {
                 variants={listItemVariants}
                 className=""
                 key={link.title}>
-                <Link href={link.url}>{link.title}</Link>
+                {link.title !== "Resume" ? (
+                  <Link href={link.url}>{link.title}</Link>
+                ) : (
+                  <Link
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={link.url}>
+                    {link.title}
+                  </Link>
+                )}
               </motion.div>
             ))}
           </motion.div>

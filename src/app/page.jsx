@@ -23,14 +23,9 @@ const Homepage = () => {
           </h1>
           {/* DESC */}
           <p className="md:text-xl">
-            Ongoing Master&rsquo;s studies @Concordia complemented by Bachelor
-            of Technology in Computer Science. Proficient in Python, JavaScript,
-            and Java, with expertise in React.js, Next.js, Node.js and Django
-            for web development. Skilled in AI and Machine learning with
-            practical experience in Pytorch, TensorFlow, and Keras. Strong
-            communicator and quick learner, poised to make meaningful
-            contributions to any team. Passionate about driving innovation in
-            the tech industry.
+            I am a Master&rsquo;s student at the Concordia University Pursuing
+            Master&rsquo;s, specializing in Software Engineering and Machine
+            Learning.
           </p>
           {/* BUTTONS */}
           <div className="w-full flex gap-4">
