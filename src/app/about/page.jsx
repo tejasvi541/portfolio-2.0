@@ -18,7 +18,7 @@ const AboutPage = () => {
 
   return (
     <motion.div
-      className="h-full"
+      className="h-full "
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
@@ -140,10 +140,16 @@ const AboutPage = () => {
               animate={isSkillRefInView ? { x: 0 } : {}}
               className="flex gap-4 flex-wrap">
               <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
+                Python
+              </div>
+              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
                 JavaScript
               </div>
               <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
                 TypeScript
+              </div>
+              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
+                Java
               </div>
               <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
                 React.js
@@ -296,7 +302,7 @@ const AboutPage = () => {
                 <div className="w-1/3 "></div>
               </div>
               {/* EXPERIENCE LIST ITEM */}
-              <div className="flex justify-between h-48">
+              <div className="flex justify-between h-58 lg:h-48">
                 {/* LEFT */}
                 <div className="w-1/3 "></div>
                 {/* CENTER */}
@@ -352,7 +358,7 @@ const AboutPage = () => {
                 {/* CENTER */}
                 <div className="w-1/6 flex justify-center">
                   {/* LINE */}
-                  <div className="w-1 h-full bg-gray-600 rounded relative">
+                  <div className="w-1 h-72 bg-gray-600 rounded relative">
                     {/* LINE CIRCLE */}
                     <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
                   </div>
