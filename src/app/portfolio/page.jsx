@@ -16,34 +16,34 @@ const items = [
   {
     id: 2,
     color: "from-blue-300 to-violet-300",
-    title: "Face-Recognition",
-    desc: "Face recognition using Siamese Network with Triplet Loss. The model is trained on 5000 images of 500 people and tested on 1000 images of 100 people. The model is able to recognize the person with 98% accuracy.",
-    img: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-    link: "https://github.com/tejasvi541/Face-Recognition-Siamese",
+    title: "Learning Management App",
+    desc: "This project aims to provide a robust, scalable, and customizable solution for managing courses, facilitating learning, and empowering both students and teachers. Built with a modern tech stack like NEXT.js, TailwindCSS, and Postgres.",
+    img: "https://images.pexels.com/photos/4974914/pexels-photo-4974914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    link: "https://github.com/tejasvi541/Course-Management-System",
   },
   {
     id: 3,
     color: "from-violet-300 to-purple-300",
-    title: "Not a Simple-ChatApp",
-    desc: "A fully scalable chat app with minimal ui built using React, Node.js, and Socket.io, redis for caching, postgres for database and Kafka for real-time messaging. The app is able to handle 1000+ users at a time.",
-    img: "https://images.pexels.com/photos/3888149/pexels-photo-3888149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    title: "Go-Server",
+    desc: "he Go-Server project is a simple web application built with Go, utilizing the Gin framework for routing, and PostgreSQL as the database. This project demonstrates the core principles of building and deploying a RESTful API with JWT authentication, focusing on managing events and user registration.",
+    img: "https://images.pexels.com/photos/249798/pexels-photo-249798.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     link: "https://github.com/tejasvi541/Not-Simple-ChatApp",
   },
   {
     id: 4,
     color: "from-purple-300 to-red-300",
-    title: "DevConnector Social App",
-    desc: "A social network for developers to connect with each other, create profiles, share posts, and get help from other developers. The app is built using MERN Stack and Redux for state management.",
-    img: "https://images.pexels.com/photos/374559/pexels-photo-374559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    link: "https://github.com/tejasvi541/DevConnector-Social",
+    title: "Not a Simple-ChatApp",
+    desc: "A fully scalable chat app with minimal ui built using React, Node.js, and Socket.io, redis for caching, postgres for database and Kafka for real-time messaging. The app is able to handle 1000+ users at a time.",
+    img: "https://images.pexels.com/photos/3888149/pexels-photo-3888149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    link: "https://github.com/tejasvi541/Go-Server",
   },
   {
     id: 5,
     color: "from-red-300 to-blue-300",
-    title: "Dev Camper Bootcamp",
-    desc: "A RESTful API for a bootcamp directory website. The API is built using Node.js, Express, and MongoDB. It includes advanced features like geospatial queries, aggregation, and image upload.",
-    img: "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    link: "https://github.com/tejasvi541/DevCamper",
+    title: "Face-Recognition",
+    desc: "Face recognition using Siamese Network with Triplet Loss. The model is trained on 5000 images of 500 people and tested on 1000 images of 100 people. The model is able to recognize the person with 98% accuracy.",
+    img: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+    link: "https://github.com/tejasvi541/Face-Recognition-Siamese",
   },
 ];
 
@@ -51,12 +51,12 @@ const PortfolioPage = () => {
   const ref = useRef();
 
   const { scrollYProgress } = useScroll({ target: ref });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-82%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
 
   return (
     <motion.div
       className="h-full"
-      initial={{ y: "-200vh" }}
+      initial={{ y: "-110vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
       <div className="h-[600vh] relative" ref={ref}>
