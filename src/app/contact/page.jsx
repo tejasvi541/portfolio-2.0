@@ -7,7 +7,6 @@ const ContactPage = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const text = "Say Hello or Ask me Something!";
-
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -39,10 +38,11 @@ const ContactPage = () => {
       initial={{ y: "-200vh" }}
       animate={{ y: "-12%" }}
       transition={{ duration: 1 }}>
-      <div className="lg:h-screen flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 sm:overflow-auto lg:overflow-hidden">
-        {/* TEXT CONTAINER */}
-        <div className="h-1/2 lg:h-full lg:w-1/2 flex items-center justify-center text-6xl">
-          <div>
+      {/* Main Container */}
+      <div className="flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 lg:overflow-hidden min-h-screen">
+        {/* Text Container */}
+        <div className="flex items-center justify-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl lg:w-1/2 h-[30vh] lg:h-auto lg:min-h-screen p-4 mb-8 lg:mb-0">
+          <div className="flex flex-wrap justify-center items-center">
             {text.split("").map((letter, index) => (
               <motion.span
                 key={index}
@@ -56,17 +56,17 @@ const ContactPage = () => {
                 {letter}
               </motion.span>
             ))}
-            😊
+            <span className="ml-2">😊</span>
           </div>
         </div>
-        {/* FORM CONTAINER */}
+        {/* Form Container */}
         <form
           onSubmit={sendEmail}
           ref={form}
-          className="lg:h-3/4 lg:w-1/2 sm:h-full bg-red-50 rounded-xl text-xl flex flex-col gap-8 justify-center p-24 relative top-36 overflow-auto">
-          <span className="mt-10">Dear Tejasvi,</span>
+          className="bg-red-50 rounded-xl lg:relative lg:top-[150px] text-base sm:text-lg md:text-xl lg:w-1/2 max-w-full max-h-[80vh] flex flex-col gap-4 sm:gap-6 md:gap-8 justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 overflow-auto">
+          <span className="mt-4">Dear Tejasvi,</span>
           <textarea
-            rows={6}
+            rows={8}
             className="bg-transparent border-b-2 border-b-black outline-none resize-none"
             name="user_message"
           />
@@ -77,7 +77,7 @@ const ContactPage = () => {
             className="bg-transparent border-b-2 border-b-black outline-none"
           />
           <span>Regards</span>
-          <button className="bg-purple-200 rounded font-semibold text-gray-600 p-4">
+          <button className="bg-purple-200 rounded font-semibold text-gray-600 p-2 sm:p-3 md:p-4">
             Send
           </button>
           {success && (
