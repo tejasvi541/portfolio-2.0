@@ -25,7 +25,7 @@ const items = [
     id: 3,
     color: "from-violet-300 to-purple-300",
     title: "Go-Server",
-    desc: "he Go-Server project is a simple web application built with Go, utilizing the Gin framework for routing, and PostgreSQL as the database. This project demonstrates the core principles of building and deploying a RESTful API with JWT authentication, focusing on managing events and user registration.",
+    desc: "The Go-Server project is a simple web application built with Go, utilizing the Gin framework for routing, and PostgreSQL as the database. This project demonstrates the core principles of building and deploying a RESTful API with JWT authentication, focusing on managing events and user registration.",
     img: "https://images.pexels.com/photos/249798/pexels-photo-249798.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     link: "https://github.com/tejasvi541/Not-Simple-ChatApp",
   },
@@ -60,28 +60,28 @@ const PortfolioPage = () => {
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
       <div className="h-[600vh] relative" ref={ref}>
-        <div className="w-screen h-[calc(100vh-6rem)] flex items-center justify-center text-8xl text-center">
+        <div className="w-screen h-[calc(100vh-6rem)] flex items-center justify-center text-4xl md:text-6xl lg:text-8xl text-center px-4">
           My Works
         </div>
-        <div className="sticky top-0 flex h-screen gap-4 items-center overflow-hidden">
+        <div className="sticky top-0 flex h-screen gap-2 md:gap-4 items-center overflow-hidden">
           <motion.div style={{ x }} className="flex">
             <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-r from-purple-300 to-red-300" />
             {items.map((item) => (
               <div
                 className={`h-screen w-screen flex items-center justify-center bg-gradient-to-r ${item.color}`}
                 key={item.id}>
-                <div className="flex flex-col gap-8 text-white">
-                  <h1 className="text-xl font-bold md:text-4xl lg:text-6xl xl:text-8xl">
+                <div className="flex flex-col gap-4 md:gap-8 text-white items-center px-4">
+                  <h1 className="text-2xl md:text-4xl lg:text-6xl xl:text-8xl font-bold text-center">
                     {item.title}
                   </h1>
-                  <div className="relative w-80 h-56 md:w-96 md:h-64 lg:w-[500px] lg:h-[350px] xl:w-[600px] xl:h-[420px]">
+                  <div className="relative w-60 h-40 md:w-96 md:h-64 lg:w-[500px] lg:h-[350px] xl:w-[600px] xl:h-[420px]">
                     <Image src={item.img} alt="" fill />
                   </div>
-                  <p className="w-80 md:w96 lg:w-[500px] lg:text-lg xl:w-[600px]">
+                  <p className="w-full md:w-96 lg:w-[500px] xl:w-[600px] text-center text-sm md:text-base lg:text-lg">
                     {item.desc}
                   </p>
-                  <Link href={item.link} className="flex justify-end">
-                    <button className="p-2 text-sm md:p-4 md:text-md lg:p-8 lg:text-lg bg-white text-gray-600 font-semibold m-4 rounded">
+                  <Link href={item.link} className="flex justify-center">
+                    <button className="p-2 text-xs md:p-4 md:text-md lg:p-6 lg:text-lg bg-white text-gray-600 font-semibold rounded">
                       See Demo
                     </button>
                   </Link>
@@ -91,14 +91,16 @@ const PortfolioPage = () => {
           </motion.div>
         </div>
       </div>
-      <div className="w-screen h-screen flex flex-col gap-16 items-center justify-center text-center">
-        <h1 className="text-8xl">Do you have a job/project?</h1>
+      <div className="w-screen h-screen flex flex-col gap-8 md:gap-16 items-center justify-center text-center px-4">
+        <h1 className="text-4xl md:text-6xl lg:text-8xl">
+          Do you have a job/project?
+        </h1>
         <div className="relative">
           <motion.svg
             animate={{ rotate: 360 }}
             transition={{ duration: 8, ease: "linear", repeat: Infinity }}
             viewBox="0 0 300 300"
-            className="w-64 h-64 md:w-[500px] md:h-[500px] ">
+            className="w-40 h-40 md:w-64 md:h-64 lg:w-[500px] lg:h-[500px]">
             <defs>
               <path
                 id="circlePath"
@@ -106,14 +108,14 @@ const PortfolioPage = () => {
               />
             </defs>
             <text fill="#000">
-              <textPath xlinkHref="#circlePath" className="text-xl">
+              <textPath xlinkHref="#circlePath" className="text-xs md:text-xl">
                 Full-Stack/Machine Learning Developer
               </textPath>
             </text>
           </motion.svg>
           <Link
             href="/contact"
-            className="w-16 h-16 md:w-28 md:h-28 absolute top-0 left-0 right-0 bottom-0 m-auto bg-black text-white rounded-full flex items-center justify-center">
+            className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-28 xl:h-28 absolute top-0 left-0 right-0 bottom-0 m-auto bg-black text-white rounded-full flex items-center justify-center">
             Hire Me
           </Link>
         </div>

@@ -37,7 +37,7 @@ const ContactPage = () => {
     <motion.div
       className="h-full"
       initial={{ y: "-200vh" }}
-      animate={{ y: "0%" }}
+      animate={{ y: "-12%" }}
       transition={{ duration: 1 }}>
       <div className="lg:h-screen flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 sm:overflow-auto lg:overflow-hidden">
         {/* TEXT CONTAINER */}
@@ -63,7 +63,7 @@ const ContactPage = () => {
         <form
           onSubmit={sendEmail}
           ref={form}
-          className="lg:h-3/4 lg:w-1/2 sm:h-3/4 bg-red-50 rounded-xl text-xl flex flex-col gap-8 justify-center p-24 relative top-36 overflow-auto">
+          className="lg:h-3/4 lg:w-1/2 sm:h-full bg-red-50 rounded-xl text-xl flex flex-col gap-8 justify-center p-24 relative top-36 overflow-auto">
           <span className="mt-10">Dear Tejasvi,</span>
           <textarea
             rows={6}
