@@ -6,11 +6,9 @@ import { useRef } from "react";
 
 const AboutPage = () => {
   const containerRef = useRef();
-
   const { scrollYProgress } = useScroll({ container: containerRef });
 
   const skillRef = useRef();
-  // const isSkillRefInView = useInView(skillRef, {once:true});
   const isSkillRefInView = useInView(skillRef, { margin: "-100px" });
 
   const experienceRef = useRef();
@@ -18,41 +16,46 @@ const AboutPage = () => {
 
   return (
     <motion.div
-      className="h-full "
-      initial={{ y: "-200vh" }}
+      className="h-full overflow-hidden"
+      initial={{ y: "-300vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1 }}>
       {/* CONTAINER */}
       <div className="h-full overflow-y-scroll lg:flex" ref={containerRef}>
         {/* TEXT CONTAINER */}
-        <div className="p-4 sm:p-8 md:p-12 lg:p-20 xl:p-48 flex flex-col gap-24 md:gap-32 lg:gap-48 xl:gap-64 lg:w-2/3 lg:pr-0 xl:w-1/2">
+        <div className="p-4 sm:p-6 md:p-8 lg:p-16 xl:p-24 flex flex-col gap-12 md:gap-16 lg:gap-20 xl:gap-24 lg:w-2/3 lg:pr-0 xl:w-1/2">
           {/* BIOGRAPHY CONTAINER */}
-          <div className="flex flex-col gap-12 justify-center">
+          <div className="flex flex-col gap-6 justify-center">
             {/* BIOGRAPHY IMAGE */}
             <Image
               src="/bio.jpg"
-              alt=""
+              alt="Biography Image"
               width={112}
               height={112}
-              className="w-28 h-28 rounded-full object-cover"
+              className="w-28 h-28 rounded-full object-cover mb-4 sm:w-32 sm:h-32 lg:w-40 lg:h-40"
             />
             {/* BIOGRAPHY TITLE */}
-            <h1 className="font-bold text-2xl">BIOGRAPHY</h1>
-            {/* BIOGRAPHY DESC */}
-            <p className="text-lg">
-              Ongoing Master&rsquo;s studies @Concordia complemented by Bachelor
-              of Technology in Computer Science. Proficient in Python,
-              JavaScript, and Java, with expertise in React.js, Next.js, Node.js
-              and Django for web development. Skilled in AI and Machine learning
-              with practical experience in Pytorch, TensorFlow, and Keras.
-              Strong communicator and quick learner, poised to make meaningful
-              contributions to any team. Passionate about driving innovation in
-              the tech industry.
+            <h1 className="font-bold text-2xl sm:text-3xl lg:text-4xl">
+              BIOGRAPHY
+            </h1>
+            {/* BIOGRAPHY DESCRIPTION */}
+            <p className="text-base sm:text-lg lg:text-xl leading-relaxed">
+              Ongoing Master&rsquo;s studies @Concordia complemented by a
+              Bachelor of Technology in Computer Science. Proficient in Python,
+              JavaScript, and Java, with expertise in React.js, Next.js,
+              Node.js, and Django for web development. Skilled in AI and Machine
+              Learning with practical experience in Pytorch, TensorFlow, and
+              Keras. Strong communicator and quick learner, poised to make
+              meaningful contributions to any team. Passionate about driving
+              innovation in the tech industry.
             </p>
             {/* BIOGRAPHY QUOTE */}
-            <span className="italic"></span>
-            {/* BIOGRAPHY SIGN SVG*/}
-            <div className="self-end">
+            <span className="italic mt-4 text-sm sm:text-base lg:text-lg">
+              Innovation distinguishes between a leader and a follower.
+            </span>
+            {/* BIOGRAPHY SIGN SVG */}
+            <div className="self-end mt-4">
+              {/* SVG SIGNATURE */}
               <svg
                 width="202"
                 height="213"
@@ -112,26 +115,25 @@ const AboutPage = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               width={50}
-              height={50}>
+              height={50}
+              className="mx-auto mt-8 hidden sm:block">
               <path
                 d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z"
                 stroke="#000000"
-                strokeWidth="1"></path>
-              <path d="M12 6V14" stroke="#000000" strokeWidth="1"></path>
-              <path
-                d="M15 11L12 14L9 11"
-                stroke="#000000"
-                strokeWidth="1"></path>
+                strokeWidth="1"
+              />
+              <path d="M12 6V14" stroke="#000000" strokeWidth="1" />
+              <path d="M15 11L12 14L9 11" stroke="#000000" strokeWidth="1" />
             </motion.svg>
           </div>
           {/* SKILLS CONTAINER */}
-          <div className="flex flex-col gap-12 justify-center" ref={skillRef}>
+          <div className="flex flex-col gap-8 justify-center" ref={skillRef}>
             {/* SKILL TITLE */}
             <motion.h1
               initial={{ x: "-300px" }}
               animate={isSkillRefInView ? { x: 0 } : {}}
               transition={{ delay: 0.2 }}
-              className="font-bold text-2xl">
+              className="font-bold text-2xl sm:text-3xl lg:text-4xl">
               SKILLS
             </motion.h1>
             {/* SKILL LIST */}
@@ -139,238 +141,205 @@ const AboutPage = () => {
               initial={{ x: "-300px" }}
               animate={isSkillRefInView ? { x: 0 } : {}}
               className="flex gap-4 flex-wrap">
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Python
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                JavaScript
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                TypeScript
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Java
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                React.js
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Next.js
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Tailwind CSS
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                MongoDB
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                MySQL
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Node.js
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Express.js
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Django
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Flask
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Pytorch
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Tensorflow
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Keras
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                OpenCV
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Numpy
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Pandas
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Algorithms
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Linux
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                GraphQL
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Redux
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Webpack
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Vite
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Docker
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                AWS
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Firebase
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Git
-              </div>
-              <div className="rounded  p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black">
-                Figma
-              </div>
+              {/* Skill Badges */}
+              {[
+                "Python",
+                "JavaScript",
+                "Typescript",
+                "Go",
+                "Java",
+                "C++",
+                "Erlang",
+                "Next js",
+                "React js",
+                "Node js",
+                "Express js",
+                "Django",
+                "Flask",
+                "Tailwind CSS",
+                "RAG",
+                "Pytorch",
+                "Tensorflow",
+                "Keras",
+                "OpenCV",
+                "Seaborn",
+                "MySQL",
+                "MongoDB",
+                "Redis",
+                "Zookeeper",
+                "Kafka",
+                "AWS",
+                "Docker",
+                "Kubernetes",
+                "Jenkins",
+                "Grafana",
+                "Prometheus",
+                "Git",
+                "Jira",
+              ].map((skill) => (
+                <div
+                  key={skill}
+                  className="rounded p-2 text-xs sm:text-sm lg:text-base cursor-pointer bg-black text-white hover:bg-white hover:text-black transition-colors duration-300">
+                  {skill}
+                </div>
+              ))}
             </motion.div>
-            {/* SKILL SCROLL SVG */}
-            <motion.svg
-              initial={{ opacity: 0.2, y: 0 }}
-              animate={{ opacity: 1, y: "10px" }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              width={50}
-              height={50}>
-              <path
-                d="M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z"
-                stroke="#000000"
-                strokeWidth="1"></path>
-              <path d="M12 6V14" stroke="#000000" strokeWidth="1"></path>
-              <path
-                d="M15 11L12 14L9 11"
-                stroke="#000000"
-                strokeWidth="1"></path>
-            </motion.svg>
           </div>
           {/* EXPERIENCE CONTAINER */}
           <div
-            className="flex flex-col gap-12 justify-center pb-48"
+            className="flex flex-col gap-8 justify-center"
             ref={experienceRef}>
             {/* EXPERIENCE TITLE */}
             <motion.h1
-              initial={{ x: "-300px" }}
-              animate={isExperienceRefInView ? { x: "0" } : {}}
+              initial={{ x: "-310px" }}
+              animate={isExperienceRefInView ? { x: 0 } : {}}
               transition={{ delay: 0.2 }}
-              className="font-bold text-2xl">
+              className="font-bold text-2xl sm:text-3xl lg:text-4xl">
               EXPERIENCE & EDUCATION
             </motion.h1>
             {/* EXPERIENCE LIST */}
             <motion.div
               initial={{ x: "-300px" }}
-              animate={isExperienceRefInView ? { x: "0" } : {}}
-              className="">
+              animate={isExperienceRefInView ? { x: 0 } : {}}
+              className="flex flex-col gap-8 mb-20">
               {/* EXPERIENCE LIST ITEM */}
-              <div className="flex justify-between h-48">
+              <div className="flex justify-between">
                 {/* LEFT */}
-                <div className="w-1/3 ">
+                <div className="w-1/3"></div>
+                {/* CENTER */}
+                <div className="w-1/6 flex justify-center">
+                  {/* LINE */}
+                  <div className="w-1 h-full bg-gray-600 rounded relative">
+                    {/* LINE CIRCLE */}
+                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+                  </div>
+                </div>
+                {/* RIGHT */}
+                <div className="w-1/3">
                   {/* JOB TITLE */}
                   <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Master&rsquo;s of Applied Computer Science
-                  </div>
-                  {/* JOB DESC */}
-                  <div className="p-3 text-sm italic">
-                    I am here to refine my knowledge for the industry, to
-                    connect and to build something Interesting{" "}
-                  </div>
-                  {/* JOB DATE */}
-                  <div className="p-3 text-red-400 text-sm font-semibold">
-                    2024 - Present
-                  </div>
-                  {/* JOB COMPANY */}
-                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
                     Concordia University
                   </div>
-                </div>
-                {/* CENTER */}
-                <div className="w-1/6 flex justify-center">
-                  {/* LINE */}
-                  <div className="w-1 h-full bg-gray-600 rounded relative">
-                    {/* LINE CIRCLE */}
-                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
-                  </div>
-                </div>
-                {/* RIGHT */}
-                <div className="w-1/3 "></div>
-              </div>
-              {/* EXPERIENCE LIST ITEM */}
-              <div className="flex justify-between h-58 lg:h-48">
-                {/* LEFT */}
-                <div className="w-1/3 "></div>
-                {/* CENTER */}
-                <div className="w-1/6 flex justify-center">
-                  {/* LINE */}
-                  <div className="w-1 h-full bg-gray-600 rounded relative">
-                    {/* LINE CIRCLE */}
-                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
-                  </div>
-                </div>
-                {/* RIGHT */}
-                <div className="w-1/3 ">
-                  {/* JOB TITLE */}
-                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Full Stack Developer{" "}
-                  </div>
-                  {/* JOB DESC */}
+                  {/* JOB DESCRIPTION */}
                   <div className="p-3 text-sm italic">
-                    I spearheaded React-based application development,
-                    leveraging advanced skills.{" "}
+                    Delivered instruction on advanced Java topics: inheritance,
+                    polymorphism, abstract classes, and interfaces. • Conducted
+                    hands-on lab sessions
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    Nov 2022 - Dec 2022{" "}
+                    2024 - 2024
                   </div>
                   {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                    Hilo Design
+                    Teaching Assistant
                   </div>
                 </div>
               </div>
               {/* EXPERIENCE LIST ITEM */}
-              <div className="flex justify-between h-48">
+              <div className="flex justify-between">
                 {/* LEFT */}
-                <div className="w-1/3 ">
+                <div className="w-1/3">
                   {/* JOB TITLE */}
                   <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
-                    Bachelor of Technology, Computer Science{" "}
+                    Concordia University
                   </div>
-                  {/* JOB DESC */}
+                  {/* JOB DESCRIPTION */}
                   <div className="p-3 text-sm italic">
-                    Got my Passion for Engineering Computer Science Solutions
-                    from here{" "}
+                    Masters Applied in Computer Science GPA - 3.8/4.3
                   </div>
                   {/* JOB DATE */}
                   <div className="p-3 text-red-400 text-sm font-semibold">
-                    2019 - 2023{" "}
+                    2024 - 2025 (Expected)
                   </div>
+                  {/* JOB COMPANY */}
                   <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
-                    Kurukshetra University
+                    Student
                   </div>
                 </div>
                 {/* CENTER */}
                 <div className="w-1/6 flex justify-center">
                   {/* LINE */}
-                  <div className="w-1 h-72 bg-gray-600 rounded relative">
+                  <div className="w-1 h-full bg-gray-600 rounded relative">
                     {/* LINE CIRCLE */}
                     <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
                   </div>
                 </div>
                 {/* RIGHT */}
-                <div className="w-1/3 "></div>
+                <div className="w-1/3"></div>
+              </div>
+              {/* EXPERIENCE LIST ITEM */}
+              <div className="flex justify-between">
+                {/* LEFT */}
+                <div className="w-1/3"></div>
+                {/* CENTER */}
+                <div className="w-1/6 flex justify-center">
+                  {/* LINE */}
+                  <div className="w-1 h-full bg-gray-600 rounded relative">
+                    {/* LINE CIRCLE */}
+                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+                  </div>
+                </div>
+                {/* RIGHT */}
+                <div className="w-1/3">
+                  {/* JOB TITLE */}
+                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
+                    Hilo Design
+                  </div>
+                  {/* JOB DESCRIPTION */}
+                  <div className="p-3 text-sm italic">
+                    Developed secure Node.js backend communicating MySQL
+                    Database and caching for fast performance, using JWT for
+                    Shopify API integrations providing under 1s loads, served
+                    1000s of partners
+                  </div>
+                  {/* JOB DATE */}
+                  <div className="p-3 text-red-400 text-sm font-semibold">
+                    2019 - 2021
+                  </div>
+                  {/* JOB COMPANY */}
+                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
+                    Full Stack Intern
+                  </div>
+                </div>
+              </div>
+              {/* EXPERIENCE LIST ITEM */}
+              <div className="flex justify-between">
+                {/* LEFT */}
+                <div className="w-1/3">
+                  {/* JOB TITLE */}
+                  <div className="bg-white p-3 font-semibold rounded-b-lg rounded-s-lg">
+                    Kurukshetra University
+                  </div>
+                  {/* JOB DESCRIPTION */}
+                  <div className="p-3 text-sm italic">
+                    Bachelor of Technology in Computer Science GPA - 8.9/10
+                  </div>
+                  {/* JOB DATE */}
+                  <div className="p-3 text-red-400 text-sm font-semibold">
+                    2019-2023
+                  </div>
+                  {/* JOB COMPANY */}
+                  <div className="p-1 rounded bg-white text-sm font-semibold w-fit">
+                    Student
+                  </div>
+                </div>
+                {/* CENTER */}
+                <div className="w-1/6 flex justify-center">
+                  {/* LINE */}
+                  <div className="w-1 h-full bg-gray-600 rounded relative">
+                    {/* LINE CIRCLE */}
+                    <div className="absolute w-5 h-5 rounded-full ring-4 ring-red-400 bg-white -left-2"></div>
+                  </div>
+                </div>
+                {/* RIGHT */}
+                <div className="w-1/3"></div>
               </div>
             </motion.div>
           </div>
         </div>
-        {/* SVG CONTAINER */}
-        <div className="hidden lg:block w-1/3 sticky top-0 z-30 xl:w-1/2">
+        {/* BRAIN ANIMATION */}
+        <div className="hidden lg:block lg:w-1/3 xl:w-1/2 sticky top-0 z-30">
           <Brain scrollYProgress={scrollYProgress} />
         </div>
       </div>
