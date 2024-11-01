@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Tejasvi's Space",
   description:
-    "Highly motivated and innovative computer science student with a passion for machine learning and software engineering. Experienced in developing complex algorithms and applications, with a strong track record of delivering high-quality solutions. Committed to continuous learning and pushing the boundaries of technology to drive meaningful impact.",
+    "I am a Master's student in Applied Computer Science at Concordia University, where I maintain a strong academic record with a GPA of 3.8/4.3. I hold a Bachelor’s degree in Computer Science and Engineering, and my expertise spans full-stack development, machine learning, and AI. I have hands-on experience with projects involving transformer models, scalable web applications, and mobile app development. Additionally, I have served as a Teaching Assistant and possess strong programming skills in Java, Python, and various web technologies.",
 };
 
 export default function RootLayout({ children }) {
