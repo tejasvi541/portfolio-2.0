@@ -125,15 +125,19 @@ const Navbar = () => {
         </Link>
       </div>
       {/* RESPONSIVE MENU */}
+      {/* RESPONSIVE MENU */}
       <div className="md:hidden">
         {/* MENU BUTTON */}
         <button
-          className="w-10 h-8 flex flex-col justify-between z-50 relative "
-          onClick={() => setOpen((prev) => !prev)}>
+          className="w-10 h-8 flex flex-col justify-between z-50 relative"
+          onClick={() => setOpen((prev) => !prev)}
+          style={{ position: "relative", zIndex: 60 }}>
+          {" "}
+          {/* Added inline style for guaranteed z-index */}
           <motion.div
             variants={topVariants}
             animate={open ? "opened" : "closed"}
-            className="w-10 h-1 bg-black rounded-xl origin-left "></motion.div>
+            className="w-10 h-1 bg-black rounded-xl origin-left"></motion.div>
           <motion.div
             variants={centerVariants}
             animate={open ? "opened" : "closed"}
@@ -149,7 +153,8 @@ const Navbar = () => {
             variants={listVariants}
             initial="closed"
             animate="opened"
-            className="absolute font-bold top-0 left-0 w-screen h-screen bg-slate-500 text-white flex flex-col items-center justify-center gap-8 text-2xl z-40">
+            className="fixed top-0 left-0 w-screen h-screen bg-slate-500 text-white flex flex-col items-center justify-center gap-8 text-2xl z-50">
+            {" "}
             {links.map((link) => (
               <motion.div
                 variants={listItemVariants}
