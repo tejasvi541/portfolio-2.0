@@ -109,7 +109,7 @@ export default function Header() {
         </Button>
         <Button variant="link" className=" font-bold size-9">
           <Link
-            href="/resume.pdf"
+            href="https://www.dropbox.com/scl/fi/2ocu8ompjf6v5374r1xgr/Resume_Tejasvi_Tech.pdf?rlkey=cyifgx9ii3tuulz7stxkh0sma&st=vp8x3w09&dl=0"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center">

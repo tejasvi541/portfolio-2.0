@@ -7,8 +7,33 @@
   --foreground: #00ff00;
 }
 
-html {
-  scroll-behavior: smooth;
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.falling-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.falling-character {
+  position: absolute;
+  color: var(--foreground);
+  font-size: 1.5rem;
+  animation: fall 15s linear infinite;
 }
 
 body {
@@ -33,4 +58,3 @@ body {
   align-items: center;
   text-align: center;
 }
-

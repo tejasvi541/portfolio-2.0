@@ -4,14 +4,16 @@ import { GraduationCap } from "lucide-react";
 export default function Education() {
   const education = [
     {
-      degree: "BS in Computer Science",
-      school: "University of Technology",
-      year: "2018-2022",
+      degree: "Master's in Applied Computer Science",
+      school: "Concordia University, Montreal, QC",
+      year: "Jan 2024 - May 2025",
+      desc: "Focused on AI/ML, scalable systems, and full-stack development; Bachelor's in Computer Science & Engineering with a strong foundation in core computing principles.",
     },
     {
-      degree: "MS in Software Engineering",
-      school: "Tech Institute",
-      year: "2022-2024",
+      degree: "Bachelor's of Technology (Computer Science & Engineering)",
+      school: "Kurukshetra University, Kurukshetra, HR",
+      year: "Aug 2019 - Sept 2023",
+      desc: "Specialized in software engineering, data structures, algorithms, and database management systems.",
     },
   ];
 
@@ -29,8 +31,12 @@ export default function Education() {
               <CardTitle>{edu.degree}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>{edu.school}</p>
-              <p>{edu.year}</p>
+              <p className="font-bold">{edu.school}</p>
+
+              <p className="underline">{edu.year}</p>
+
+              <br />
+              {edu.desc && <p>{edu.desc}</p>}
             </CardContent>
           </Card>
         ))}

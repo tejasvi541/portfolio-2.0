@@ -4,25 +4,23 @@ import { Briefcase } from "lucide-react";
 export default function Experience() {
   const experiences = [
     {
-      title: "Senior Software Engineer",
-      company: "Tech Innovators Inc.",
-      period: "2023 - Present",
-      description:
-        "Led development of cloud-native applications and mentored junior developers.",
+      title: "Teaching Assistant COMP-249-Object Oriented Programming",
+      company: "Concordia University, Montreal, QC",
+      period: "Jul 2024 - Sep 2024",
+      description: [
+        "Delivered instruction on advanced Java topics: inheritance, polymorphism, abstract classes, and interfaces & Guided students through hands-on lab sessions, providing in-depth feedback on assignments and exams.",
+      ],
     },
     {
-      title: "Software Engineer",
-      company: "Digital Solutions Ltd.",
-      period: "2021 - 2023",
-      description:
-        "Developed and maintained full-stack web applications using React and Node.js.",
-    },
-    {
-      title: "Junior Developer",
-      company: "StartUp Nexus",
-      period: "2019 - 2021",
-      description:
-        "Assisted in building and testing mobile applications using React Native.",
+      title: "Full Stack Intern",
+      company: "Hilo Design, Remote",
+      period: "Nov 2022 - May 2023",
+      description: [
+        "Developed a secure Node.js backend with MySQL integration, implementing JWT-based authentication for Shopify API, achieving sub-1s response times and supporting 1000s of users.",
+        "Designed and Implemented a React.js frontend with Redux, incorporating unit tests for reliability and maintaining millisecond-level reload times under high concurrency.",
+        "Deployed containerized microservices using Docker on AWS ECS with auto-scaling, achieving a 40% reduction in provisioning time and supporting up to 10000 requests per second.",
+        "Implemented optimized MySQL indexing and Redis caching layers, reducing query latency by 30% and maintaining sub-200ms p95 response times under load.",
+      ],
     },
   ];
 
@@ -42,7 +40,15 @@ export default function Experience() {
               <p className="text-sm mb-2">
                 {exp.company} | {exp.period}
               </p>
-              <p>{exp.description}</p>
+              {Array.isArray(exp.description) ? (
+                <ul className="list-disc pl-4 space-y-2">
+                  {exp.description.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>{exp.description}</p>
+              )}
             </CardContent>
           </Card>
         ))}
