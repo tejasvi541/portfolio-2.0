@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000000;
+  --foreground: #00ff00;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.terminal-border {
+  border: 2px solid var(--foreground);
+}
+
+.terminal-glow:hover {
+  box-shadow: 0 0 10px var(--foreground);
+}
+
+.square-tile {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
