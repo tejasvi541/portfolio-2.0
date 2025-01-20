@@ -1,51 +1,118 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Code, Server, Database, GitGraphIcon as Git } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Code, Server, Database, GitBranch, Globe, Cpu } from "lucide-react";
 
 export default function Skills() {
   const skillCategories = [
     {
       name: "Frontend",
-      icon: <Code />,
-      skills: ["JavaScript", "TypeScript", "React", "Next.js", "HTML", "CSS"],
+      icon: <Code className="w-6 h-6" />,
+      skills: [
+        "React",
+        "Next.js",
+        "Vue.js",
+        "Angular",
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "TypeScript",
+      ],
     },
     {
       name: "Backend",
-      icon: <Server />,
-      skills: ["Node.js", "Express", "Python", "Django"],
+      icon: <Server className="w-6 h-6" />,
+      skills: [
+        "Node.js",
+        "Express",
+        "Django",
+        "Flask",
+        "Ruby on Rails",
+        "ASP.NET",
+        "Java Spring",
+        "PHP",
+      ],
     },
     {
       name: "Database",
-      icon: <Database />,
-      skills: ["SQL", "MongoDB", "PostgreSQL"],
+      icon: <Database className="w-6 h-6" />,
+      skills: [
+        "MySQL",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Elasticsearch",
+        "Cassandra",
+        "Oracle",
+        "SQLite",
+      ],
     },
     {
-      name: "Tools",
-      icon: <Git />,
-      skills: ["Git", "Docker", "AWS", "CI/CD"],
+      name: "DevOps",
+      icon: <GitBranch className="w-6 h-6" />,
+      skills: [
+        "Docker",
+        "Kubernetes",
+        "Jenkins",
+        "GitLab CI",
+        "AWS",
+        "Azure",
+        "GCP",
+        "Terraform",
+      ],
     },
-  ]
+    {
+      name: "Mobile",
+      icon: <Globe className="w-6 h-6" />,
+      skills: [
+        "React Native",
+        "Flutter",
+        "iOS (Swift)",
+        "Android (Kotlin)",
+        "Xamarin",
+        "Ionic",
+        "PhoneGap",
+        "Unity",
+      ],
+    },
+    {
+      name: "Other",
+      icon: <Cpu className="w-6 h-6" />,
+      skills: [
+        "GraphQL",
+        "REST APIs",
+        "WebSockets",
+        "Machine Learning",
+        "AI",
+        "Blockchain",
+        "IoT",
+        "Microservices",
+      ],
+    },
+  ];
 
   return (
     <section id="skills" className="mb-12">
       <h2 className="text-2xl font-bold mb-4">Skills</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {skillCategories.map((category, index) => (
-          <Card key={index} className="terminal-border terminal-glow bg-background text-foreground">
+          <Card
+            key={index}
+            className="terminal-border terminal-glow bg-background text-foreground">
             <CardContent className="p-4">
               <div className="flex items-center mb-2">
                 {category.icon}
                 <h3 className="text-xl font-bold ml-2">{category.name}</h3>
               </div>
-              <ul>
+              <div className="grid grid-cols-2 gap-2">
                 {category.skills.map((skill, skillIndex) => (
-                  <li key={skillIndex}>{skill}</li>
+                  <div key={skillIndex} className="text-sm">
+                    {skill}
+                  </div>
                 ))}
-              </ul>
+              </div>
             </CardContent>
           </Card>
         ))}
       </div>
     </section>
-  )
+  );
 }
-
