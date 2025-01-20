@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Github, Twitter, FileText } from "lucide-react";
+import { Github, Twitter, FileText, Linkedin } from "lucide-react";
 
-const titles = ["AI Engineer", "Software Engineer", "Backend Engineer"];
+const titles = ["  AI Engineer", "  Software Engineer", "  Backend Engineer"];
 
 export default function Header() {
   const [titleIndex, setTitleIndex] = useState(0);
@@ -45,7 +45,7 @@ export default function Header() {
     <header className="mb-12 terminal-border p-4">
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-4xl font-bold">John Doe</h1>
+          <h1 className="text-4xl font-bold">TEJASVI</h1>
           <p className="h-6">{displayedTitle}</p>
         </div>
         <nav className="flex items-center space-x-4">
@@ -76,31 +76,47 @@ export default function Header() {
           </Link>
         </nav>
       </div>
-      <div className="flex justify-end space-x-4">
-        <Link
-          href="https://github.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center">
-          <Github className="w-6 h-6 mr-2" />
-          <span>GitHub</span>
-        </Link>
-        <Link
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center">
-          <Twitter className="w-6 h-6 mr-2" />
-          <span>Twitter</span>
-        </Link>
-        <Link
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center">
-          <FileText className="w-6 h-6 mr-2" />
-          <span>Resume</span>
-        </Link>
+      <div className="flex justify-end space-x-16 space-between mr-10">
+        <Button variant="link" className="font-bold size-9">
+          <Link
+            href="https://github.com/tejasvi541"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center">
+            <Github className="w-6 h-6 mr-2" />
+            <span>GitHub</span>
+          </Link>
+        </Button>
+        <Button variant="link" className=" font-bold size-9">
+          <Link
+            href="https://x.com/weinsimulation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center">
+            <Twitter className="w-6 h-6 mr-2" />
+            <span>𝕏</span>
+          </Link>
+        </Button>
+        <Button variant="link" className="font-bold size-9">
+          <Link
+            href="https://linkedin.com/in/t3jasvi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center">
+            <Linkedin className="w-6 h-6 mr-2" />
+            <span>Linkedin</span>
+          </Link>
+        </Button>
+        <Button variant="link" className=" font-bold size-9">
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center">
+            <FileText className="w-6 h-6 mr-2" />
+            <span>Resume</span>
+          </Link>
+        </Button>
       </div>
     </header>
   );
