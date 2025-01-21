@@ -25,7 +25,7 @@ export default function FallingBackground() {
     };
 
     const newCharacters: JSX.Element[] = [];
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 15; i++) {
       newCharacters.push(createCharacter());
     }
     setCharacters(newCharacters);
