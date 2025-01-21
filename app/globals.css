@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000000;
+  --foreground: #00ff00;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.falling-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.falling-character {
+  position: absolute;
+  color: var(--foreground);
+  font-size: 1.5rem;
+  animation: fall 15s linear infinite;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.terminal-border {
+  border: 2px solid var(--foreground);
+}
+
+.terminal-glow:hover {
+  box-shadow: 0 0 10px var(--foreground);
+}
+
+.square-tile {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
