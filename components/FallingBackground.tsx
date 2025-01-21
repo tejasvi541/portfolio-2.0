@@ -14,8 +14,8 @@ export default function FallingBackground() {
       const style = {
         left: `${Math.random() * 100}%`,
         animationDuration: `${5 + Math.random() * 10}s`,
-        opacity: 0.1 + Math.random() * 0.6,
-        filter: `blur(${1 + Math.random() * 0.2}px)`,
+        opacity: Math.random() * 0.2,
+        filter: `blur(${0.1 + Math.random() * 0.2}px)`,
       };
       return (
         <span key={Date.now()} className="falling-character" style={style}>
@@ -25,7 +25,7 @@ export default function FallingBackground() {
     };
 
     const newCharacters: JSX.Element[] = [];
-    for (let i = 0; i < 110; i++) {
+    for (let i = 0; i < 150; i++) {
       newCharacters.push(createCharacter());
     }
     setCharacters(newCharacters);
