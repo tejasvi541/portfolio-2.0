@@ -46,7 +46,7 @@ export default function Projects() {
           description:
             "Engineered a transformer model for bilingual translation using PyTorch, incorporating custom tokenization and positional encoding techniques for efficient sequence-to-sequence learning.",
           link: "https://github.com/tejasvi541/transformer",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/transformer.jpg?height=100&width=100",
           tech: ["PyTorch", "HuggingFace", "Docker"],
           github: "tejasvi541/transformer",
         },
@@ -55,7 +55,7 @@ export default function Projects() {
           description:
             "Constructed a scalable Learning Management System using Next.js, Prisma, and Postgres, integrating secure Stripe payments, fast video on demand via Mux, and dynamic content management with drag-and-drop functionality.",
           link: "https://github.com/tejasvi541/LMS",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/lms.jpg?height=100&width=100",
           tech: ["Next.js", "TypeScript", "Docker", "PostgreSQL", "Stripe"],
         },
         {
@@ -63,7 +63,7 @@ export default function Projects() {
           description:
             "Architected the LLaMA 2 model architecture from scratch in PyTorch, focusing on rotary positional encoding, grouped multihead attention, KV cache, and RMS normalization to enhance model efficiency.",
           link: "https://github.com/tejasvi541/LLaMA-2",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/llama.jpg?height=100&width=100",
           tech: ["PyTorch", "LLaMA Stack", "Docker"],
           github: "tejasvi541/LLaMA-2",
         },
@@ -72,7 +72,7 @@ export default function Projects() {
           description:
             "Engineered a scalable chat server using TypeScript, Socket.io, and Kafka for distributed messaging, with PostgreSQL and Redis for robust data persistence and inter-service communication.",
           link: "https://github.com/tejasvi541/Not-Simple-ChatApp",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/chat.jpg?height=100&width=100",
           tech: [
             "TypeScript",
             "React.js",
@@ -89,7 +89,7 @@ export default function Projects() {
           description:
             "This repository provides an unofficial PyTorch implementation of the Vision Transformer (ViT) model, introduced in the paper 'An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.' The implementation includes a custom PatchEmbedding layer and a complete ViT model for image classification tasks, tested on the Caltech-256 dataset. The project also includes training, inference, and Docker support for easy deployment",
           link: "https://github.com/tejasvi541/ViT",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/vit.jpg?height=100&width=100",
           tech: [
             "Python",
             "PyTorch",
@@ -106,7 +106,7 @@ export default function Projects() {
           description:
             "This repository implements the Siglip Vision Transformer (ViT), a deep learning model designed for vision tasks, leveraging the transformer architecture introduced in 'Attention Is All You Need' and adapted for image processing. Siglip extends the Vision Transformer (ViT) framework by incorporating spatial attention mechanisms and efficient patch embeddings to process images as sequences of patches. The implementation includes modules for patch embedding, multi-headed self-attention, positional encoding, and transformer encoder layers, all built using PyTorch. The project is containerized with Docker for seamless deployment and includes inference scripts for practical use cases.",
           link: "https://github.com/tejasvi541/Pali-Gemma",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/siglip.jpg?height=100&width=100",
           tech: [
             "Python",
             "PyTorch",
@@ -125,7 +125,7 @@ export default function Projects() {
           description:
             "The Go-Server project is a RESTful API built with the 'Gin' framework in 'Go,'featuring 'JWT authentication' for secure user login and event management. It supports CRUD operations for events, user registration, and unregistration, all backed by a 'PostgreSQL' database. The project is containerized using 'Docker' for easy deployment and scalability.",
           link: "https://github.com/tejasvi541/Go-Server",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/go.jpg?height=100&width=100",
           tech: [
             "Go",
             "Gin Framework",
@@ -142,7 +142,7 @@ export default function Projects() {
           description:
             "Created a React Native mobile app for real-time skin disease detection, leveraging a fine-tuned XceptionNet model with 23-class classification getting around 42% accuracy because of dataset limitations.",
           link: "https://github.com/tejasvi541/skin-disease-classifier",
-          image: "/placeholder.svg?height=100&width=100",
+          image: "/skin.jpg?height=100&width=100",
           tech: ["Python", "JavaScript", "React Native", "TensorFlow"],
         },
       ];
