@@ -33,8 +33,8 @@ export default function Home() {
     <main className="container mx-auto px-4 py-8 relative">
       <FallingBackground />
       <Header />
-      <Experience />
       <Skills />
+      <Experience />
       <Education />
       <Projects />
       <Contact />

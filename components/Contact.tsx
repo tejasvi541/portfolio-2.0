@@ -8,15 +8,9 @@ import emailjs from "@emailjs/browser";
 import { useToast } from "@/components/ui/use-toast";
 
 export default function Contact() {
-  const [error, setError] = useState(false);
   const form = useRef<HTMLFormElement>(null);
+  const [error, setError] = useState(false);
   const { toast } = useToast();
-
-  interface EmailFormElements extends HTMLFormControlsCollection {
-    name: HTMLInputElement;
-    email: HTMLInputElement;
-    message: HTMLTextAreaElement;
-  }
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
