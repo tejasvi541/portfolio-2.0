@@ -5,6 +5,13 @@
 :root {
   --background: #000000;
   --foreground: #00ff00;
+  --accent: #ff00ff;
+}
+
+.light {
+  --background: #f5f5dc; /* Cream color */
+  --foreground: #333333;
+  --accent: #4a90e2; /* A soft blue, easy on the eyes */
 }
 
 @keyframes fall {
@@ -47,7 +54,7 @@ body {
 }
 
 .terminal-glow:hover {
-  box-shadow: 0 0 10px var(--foreground);
+  box-shadow: 0 0 10px var(--accent);
 }
 
 .square-tile {
@@ -57,4 +64,17 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+/* Add this new style for the full-screen sidebar */
+@media (max-width: 767px) {
+  .full-screen-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
 }
