@@ -47,9 +47,9 @@ export default function Navbar() {
           <Link href="/" passHref>
             <Button variant="ghost">Home</Button>
           </Link>
-          <Link href="/blog" passHref>
+          {/* <Link href="/blog" passHref>
             <Button variant="ghost">Blog</Button>
-          </Link>
+          </Link> */}
         </div>
         <div className="hidden md:flex items-center justify-center space-x-4 flex-grow">
           <Button variant="ghost" onClick={() => scrollToSection("skills")}>
