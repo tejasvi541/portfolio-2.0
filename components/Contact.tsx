@@ -6,39 +6,40 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useToast } from "@/components/ui/use-toast";
+import type React from "react"; // Added import for React
 
 export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
-  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(false);
-    emailjs
-      .sendForm(
+    setIsLoading(true);
+
+    try {
+      const result = await emailjs.sendForm(
         process.env.NEXT_PUBLIC_SERVICE_ID!,
         process.env.NEXT_PUBLIC_TEMPLATE_ID!,
         form.current!,
         process.env.NEXT_PUBLIC_PUBLIC_KEY
-      )
-      .then(
-        () => {
-          toast({
-            title: "Success!",
-            description: "Your message has been sent successfully.",
-          });
-          form.current!.reset();
-        },
-        () => {
-          setError(true);
-          toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Failed to send message. Please try again.",
-          });
-        }
       );
+      console.log(result.text);
+      toast({
+        title: "Success!",
+        description: "Your message has been sent successfully.",
+      });
+      form.current!.reset();
+    } catch (error: any) {
+      console.error("EmailJS error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: `Failed to send message: ${error.text || "Unknown error"}`,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -79,8 +80,9 @@ export default function Contact() {
         </div>
         <Button
           type="submit"
-          className="w-full bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] hover:scale-[1.02]">
-          Send Message
+          className="w-full bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] hover:scale-[1.02]"
+          disabled={isLoading}>
+          {isLoading ? "Sending..." : "Send Message"}
         </Button>
       </form>
     </section>
