@@ -54,7 +54,7 @@ export default function Projects() {
           name: "Learning Management System",
           description:
             "Constructed a scalable Learning Management System using Next.js, Prisma, and Postgres, integrating secure Stripe payments, fast video on demand via Mux, and dynamic content management with drag-and-drop functionality.",
-          link: "https://github.com/tejasvi541/LMS",
+          link: "https://github.com/tejasvi541/Course-Management-System",
           image: "/lms.jpg?height=100&width=100",
           tech: ["Next.js", "TypeScript", "Docker", "PostgreSQL", "Stripe"],
         },
