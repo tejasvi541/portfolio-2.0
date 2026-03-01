@@ -7,7 +7,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { motion } from "framer-motion"
 import { Send } from "lucide-react"
-import { sendContactEmail } from "@/app/actions/contact"
+import emailjs from "@emailjs/browser"
+
+const serviceId = process.env.NEXT_PUBLIC_SERVICE_ID
+const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID
+const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY
 
 export default function Contact() {
   const [isLoading, setIsLoading] = useState(false)
@@ -15,31 +19,40 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!serviceId || !templateId || !publicKey) {
+      toast({
+        variant: "destructive",
+        title: "Not configured",
+        description: "Email service is not configured.",
+      })
+      return
+    }
     setIsLoading(true)
 
     const formData = new FormData(e.currentTarget)
+    const name = (formData.get("name") as string) || ""
+    const email = (formData.get("email") as string) || ""
+    const message = (formData.get("message") as string) || ""
 
     try {
-      const result = await sendContactEmail({
-        name: formData.get("name") as string,
-        email: formData.get("email") as string,
-        message: formData.get("message") as string,
-      })
-
-      if (!result.success) {
-        throw new Error(result.error || "Failed to send message")
-      }
+      await emailjs.send(
+        serviceId,
+        templateId,
+        { name, email, message },
+        { publicKey }
+      )
 
       toast({
         title: "Message sent",
         description: "Thanks! I'll get back to you soon.",
       })
       e.currentTarget.reset()
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Something went wrong. Please try again."
       toast({
         variant: "destructive",
         title: "Failed to send",
-        description: error.message || "Something went wrong. Please try again.",
+        description: message,
       })
     } finally {
       setIsLoading(false)

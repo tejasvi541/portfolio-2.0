@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Plus, Edit, Trash2, Eye, EyeOff, Save, X, Upload, FileText } from "lucide-react"
+import { Plus, Edit, Trash2, Eye, EyeOff, Save, X, Upload, FileText, Lock } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { getBlogPostsClient, saveBlogPost, deleteBlogPost, generateSlug, type BlogPost } from "@/lib/blog-client"
 import Link from "next/link"
@@ -12,6 +12,8 @@ import { motion } from "framer-motion"
 import MarkdownEditor from "@/components/MarkdownEditor"
 
 export default function BlogAdminPage() {
+  const [authState, setAuthState] = useState<"checking" | "unauthenticated" | "authenticated">("checking")
+  const [passwordInput, setPasswordInput] = useState("")
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [isEditing, setIsEditing] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
@@ -26,7 +28,37 @@ export default function BlogAdminPage() {
   const [tagInput, setTagInput] = useState("")
   const { toast } = useToast()
 
-  useEffect(() => { loadPosts() }, [])
+  useEffect(() => {
+    fetch("/api/blog-auth")
+      .then((res) => res.json())
+      .then((data) => {
+        setAuthState(data.authenticated ? "authenticated" : "unauthenticated")
+        if (data.authenticated) loadPosts()
+      })
+      .catch(() => setAuthState("unauthenticated"))
+  }, [])
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!passwordInput.trim()) {
+      toast({ variant: "destructive", title: "Enter password", description: "Password cannot be blank." })
+      return
+    }
+    const res = await fetch("/api/blog-auth", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: passwordInput }),
+    })
+    const data = await res.json()
+    if (data.success) {
+      setAuthState("authenticated")
+      setPasswordInput("")
+      loadPosts()
+      toast({ title: "Access granted", description: "Welcome to the blog admin." })
+    } else {
+      toast({ variant: "destructive", title: "Access denied", description: data.error || "Invalid password." })
+    }
+  }
 
   const loadPosts = () => {
     const loadedPosts = getBlogPostsClient()
@@ -104,6 +136,47 @@ export default function BlogAdminPage() {
       setEditingPost({ ...editingPost, tags: [...(editingPost.tags || []), tagInput] })
       setTagInput("")
     }
+  }
+
+  if (authState === "checking") {
+    return (
+      <div className="max-w-md mx-auto relative z-10 mt-16">
+        <div className="war-card text-center py-12">
+          <div className="animate-pulse text-muted-foreground text-xs font-mono">Checking access…</div>
+        </div>
+      </div>
+    )
+  }
+
+  if (authState === "unauthenticated") {
+    return (
+      <div className="max-w-md mx-auto relative z-10 mt-16">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="war-card">
+          <div className="flex items-center gap-2 mb-6">
+            <Lock className="h-5 w-5 text-primary" />
+            <h1 className="text-lg font-sans font-bold">Blog Admin</h1>
+          </div>
+          <p className="text-[10px] font-mono text-muted-foreground mb-4">Enter the admin password to continue.</p>
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="blog-admin-password" className="block text-[10px] font-mono text-primary mb-2">Password</label>
+              <Input
+                id="blog-admin-password"
+                type="password"
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                placeholder="Admin password"
+                className="bg-input border-border focus:border-primary h-10 text-xs font-mono"
+                autoComplete="current-password"
+                autoFocus
+              />
+            </div>
+            <Button type="submit" className="brutal-button w-full h-10 text-[10px]">Unlock</Button>
+          </form>
+          <Link href="/blog" className="block mt-4 text-[10px] font-mono text-muted-foreground hover:text-primary">← Back to blog</Link>
+        </motion.div>
+      </div>
+    )
   }
 
   if (isEditing) {
