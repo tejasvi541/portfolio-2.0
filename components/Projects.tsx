@@ -1,229 +1,112 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { FolderGit2, ExternalLink, GithubIcon } from "lucide-react";
-import Image from "next/image";
-import GitHubCalendar from "react-github-calendar";
-import React, { Suspense } from "react";
-interface Project {
-  name: string;
-  description: string;
-  link: string;
-  image: string;
-  tech: string[];
-  github?: string;
-}
+"use client"
 
-async function fetchGitHubData(repo: string) {
-  const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-  const response = await fetch(`https://api.github.com/repos/${repo}`, {
-    headers: { Authorization: `token ${token}` },
-  });
-  return response.json();
-}
-
-const GitHubCalendarWrapper = () => {
-  return (
-    <div className="flex mb-4 justify-center">
-      <Suspense
-        fallback={
-          <div className="text-center">Loading GitHub contributions...</div>
-        }>
-        <GitHubCalendar username={"tejasvi541"} />
-      </Suspense>
-    </div>
-  );
-};
+import { ExternalLink } from "lucide-react"
+import { motion } from "framer-motion"
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const projectsData: Project[] = [
-        {
-          name: "Transformer Model for Bilingual Translation",
-          description:
-            "Engineered a transformer model for bilingual translation using PyTorch, incorporating custom tokenization and positional encoding techniques for efficient sequence-to-sequence learning.",
-          link: "https://github.com/tejasvi541/transformer",
-          image: "/transformer.jpg?height=100&width=100",
-          tech: ["PyTorch", "HuggingFace", "Docker"],
-          github: "tejasvi541/transformer",
-        },
-        {
-          name: "Learning Management System",
-          description:
-            "Constructed a scalable Learning Management System using Next.js, Prisma, and Postgres, integrating secure Stripe payments, fast video on demand via Mux, and dynamic content management with drag-and-drop functionality.",
-          link: "https://github.com/tejasvi541/Course-Management-System",
-          image: "/lms.jpg?height=100&width=100",
-          tech: ["Next.js", "TypeScript", "Docker", "PostgreSQL", "Stripe"],
-        },
-        {
-          name: "LLaMA 2 Implementation",
-          description:
-            "Architected the LLaMA 2 model architecture from scratch in PyTorch, focusing on rotary positional encoding, grouped multihead attention, KV cache, and RMS normalization to enhance model efficiency.",
-          link: "https://github.com/tejasvi541/LLaMA-2",
-          image: "/llama.jpg?height=100&width=100",
-          tech: ["PyTorch", "LLaMA Stack", "Docker"],
-          github: "tejasvi541/LLaMA-2",
-        },
-        {
-          name: "Scalable Chat App",
-          description:
-            "Engineered a scalable chat server using TypeScript, Socket.io, and Kafka for distributed messaging, with PostgreSQL and Redis for robust data persistence and inter-service communication.",
-          link: "https://github.com/tejasvi541/Not-Simple-ChatApp",
-          image: "/chat.jpg?height=100&width=100",
-          tech: [
-            "TypeScript",
-            "React.js",
-            "Socket.io",
-            "Kafka",
-            "PostgreSQL",
-            "Redis",
-            "Docker",
-          ],
-          github: "tejasvi541/Not-Simple-ChatApp",
-        },
-        {
-          name: "Vision Transformer (ViT)",
-          description:
-            "This repository provides an unofficial PyTorch implementation of the Vision Transformer (ViT) model, introduced in the paper 'An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.' The implementation includes a custom PatchEmbedding layer and a complete ViT model for image classification tasks, tested on the Caltech-256 dataset. The project also includes training, inference, and Docker support for easy deployment",
-          link: "https://github.com/tejasvi541/ViT",
-          image: "/vit.jpg?height=100&width=100",
-          tech: [
-            "Python",
-            "PyTorch",
-            "Computer Vision",
-            "Patch Embedding",
-            "Transformer",
-            "Docker",
-            "Caltech-256",
-          ],
-          github: "tejasvi541/ViT",
-        },
-        {
-          name: "Pali-Gemma",
-          description:
-            "This repository implements the Siglip Vision Transformer (ViT), a deep learning model designed for vision tasks, leveraging the transformer architecture introduced in 'Attention Is All You Need' and adapted for image processing. Siglip extends the Vision Transformer (ViT) framework by incorporating spatial attention mechanisms and efficient patch embeddings to process images as sequences of patches. The implementation includes modules for patch embedding, multi-headed self-attention, positional encoding, and transformer encoder layers, all built using PyTorch. The project is containerized with Docker for seamless deployment and includes inference scripts for practical use cases.",
-          link: "https://github.com/tejasvi541/Pali-Gemma",
-          image: "/siglip.jpg?height=100&width=100",
-          tech: [
-            "Python",
-            "PyTorch",
-            "Computer Vision",
-            "Transformer",
-            "Docker",
-            "Inference",
-            "Patch embedding",
-            "Positional encoding",
-            "Multi-headed self-attention",
-          ],
-          github: "tejasvi541/Pali-Gemma",
-        },
-        {
-          name: "Go Server",
-          description:
-            "The Go-Server project is a RESTful API built with the 'Gin' framework in 'Go,'featuring 'JWT authentication' for secure user login and event management. It supports CRUD operations for events, user registration, and unregistration, all backed by a 'PostgreSQL' database. The project is containerized using 'Docker' for easy deployment and scalability.",
-          link: "https://github.com/tejasvi541/Go-Server",
-          image: "/go.jpg?height=100&width=100",
-          tech: [
-            "Go",
-            "Gin Framework",
-            "JWT Authentication",
-            "RESTful API",
-            "PostgreSQL",
-            "Docker",
-            "Event Management",
-          ],
-          github: "tejasvi541/Go-Server",
-        },
-        {
-          name: "Skin Disease Classifier App",
-          description:
-            "Created a React Native mobile app for real-time skin disease detection, leveraging a fine-tuned XceptionNet model with 23-class classification getting around 42% accuracy because of dataset limitations.",
-          link: "https://github.com/tejasvi541/skin-disease-classifier",
-          image: "/skin.jpg?height=100&width=100",
-          tech: ["Python", "JavaScript", "React Native", "TensorFlow"],
-        },
-      ];
-
-      const updatedProjects = await Promise.all(
-        projectsData.map(async (project) => {
-          if (project.github) {
-            try {
-              const data = await fetchGitHubData(project.github);
-              return {
-                ...project,
-                stars: data.stargazers_count,
-                forks: data.forks_count,
-              };
-            } catch (error) {
-              console.error(
-                `Error fetching GitHub data for ${project.github}:`,
-                error
-              );
-              return project;
-            }
-          }
-          return project;
-        })
-      );
-
-      setProjects(updatedProjects);
-    };
-
-    fetchProjects();
-  }, []);
+  const projects = [
+    {
+      id: "01",
+      title: "Transformer Model for Bilingual Translation",
+      description: "Engineered a transformer model for bilingual translation using PyTorch, incorporating custom tokenization and positional encoding techniques for efficient sequence-to-sequence learning.",
+      link: "https://github.com/tejasvi541/transformer",
+      tech: ["PyTorch", "HuggingFace", "Docker"],
+    },
+    {
+      id: "02",
+      title: "Learning Management System",
+      description: "Constructed a scalable LMS using Next.js, Prisma, and Postgres, integrating Stripe payments, video on demand via Mux, and dynamic content management with drag-and-drop.",
+      link: "https://github.com/tejasvi541/LMS",
+      tech: ["Next.js", "TypeScript", "Docker", "PostgreSQL", "Stripe"],
+    },
+    {
+      id: "03",
+      title: "LLaMA 2 Implementation",
+      description: "Architected the LLaMA 2 model from scratch in PyTorch, focusing on rotary positional encoding, grouped multihead attention, KV cache, and RMS normalization.",
+      link: "https://github.com/tejasvi541/LLaMA-2",
+      tech: ["PyTorch", "LLaMA Stack", "Docker"],
+    },
+    {
+      id: "04",
+      title: "Scalable Chat Application",
+      description: "Engineered a scalable chat server using TypeScript, Socket.io, and Kafka for distributed messaging, with PostgreSQL and Redis for robust data persistence.",
+      link: "https://github.com/tejasvi541/Not-Simple-ChatApp",
+      tech: ["TypeScript", "React.js", "Socket.io", "Kafka", "PostgreSQL", "Redis"],
+    },
+    {
+      id: "05",
+      title: "Vision Transformer (ViT)",
+      description: "Implementation of Vision Transformer for image classification, including custom PatchEmbedding layer and complete ViT model tested on Caltech-256 dataset.",
+      link: "https://github.com/tejasvi541/ViT",
+      tech: ["Python", "PyTorch", "Computer Vision", "Docker"],
+    },
+    {
+      id: "06",
+      title: "Pali-Gemma Vision Transformer",
+      description: "Siglip Vision Transformer with spatial attention mechanisms and efficient patch embeddings, featuring multi-headed self-attention and positional encoding.",
+      link: "https://github.com/tejasvi541/Pali-Gemma",
+      tech: ["Python", "PyTorch", "Transformer", "Docker"],
+    },
+    {
+      id: "07",
+      title: "Go RESTful API Server",
+      description: "RESTful API built with Gin framework featuring JWT authentication for secure user login and event management. CRUD operations backed by PostgreSQL.",
+      link: "https://github.com/tejasvi541/Go-Server",
+      tech: ["Go", "Gin", "JWT", "PostgreSQL", "Docker"],
+    },
+    {
+      id: "08",
+      title: "Skin Disease Classifier",
+      description: "React Native mobile app for real-time skin disease detection, leveraging a fine-tuned XceptionNet model with 23-class classification on Dermnet dataset.",
+      link: "https://github.com/tejasvi541/skin-disease-classifier",
+      tech: ["Python", "React Native", "TensorFlow"],
+    },
+  ]
 
   return (
-    <section id="projects" className="mb-12">
-      <h2 className="text-2xl font-bold mb-4 flex items-center">
-        <FolderGit2 className="mr-2" /> Projects
-      </h2>
-      <GitHubCalendarWrapper />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section id="projects" className="mb-32 relative z-10">
+      <div className="section-header">
+        <span className="index">03</span>
+        <h2 className="font-sans">Projects</h2>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {projects.map((project, index) => (
-          <Card
+          <motion.a
             key={index}
-            className="terminal-border terminal-glow bg-background text-foreground">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>{project.name}</span>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer">
-                  <p className="flex items-center gap-2">
-                    <GithubIcon className="w-5 h-5" />
-                    <ExternalLink className="w-5 h-5" />
-                  </p>
-                </a>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-start mb-4">
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.name}
-                  width={100}
-                  height={100}
-                  className="mr-4"
-                />
-                <p className="text-sm">{project.description}</p>
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: index * 0.05, duration: 0.5 }}
+            className="war-card group block"
+          >
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <span className="text-[10px] text-primary font-mono opacity-50">#{project.id}</span>
+                <h3 className="text-sm font-sans font-bold mt-1 leading-snug group-hover:text-primary transition-colors">
+                  {project.title}
+                </h3>
               </div>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {project.tech.map((tech, techIndex) => (
-                  <span
-                    key={techIndex}
-                    className="text-xs bg-foreground text-background px-2 py-1 rounded">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1 ml-3" />
+            </div>
+
+            <p className="text-[11px] text-muted-foreground mb-4 leading-relaxed line-clamp-2">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-1.5">
+              {project.tech.map((tech, techIndex) => (
+                <span key={techIndex} className="tech-tag text-[9px] py-[2px] px-2">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.a>
         ))}
       </div>
     </section>
-  );
+  )
 }

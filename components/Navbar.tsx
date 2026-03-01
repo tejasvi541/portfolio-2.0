@@ -1,145 +1,124 @@
-"use client";
-import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "./ThemeToggle";
-import { Menu, X } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet";
+"use client"
+
+import { useState, useEffect, useCallback } from "react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "./ThemeToggle"
+import { Menu, X } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet"
+import { motion } from "framer-motion"
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
+      setIsScrolled(window.scrollY > 20)
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      // Track active section
+      const sections = ["skills", "experience", "projects", "education", "contact"]
+      for (const id of sections.reverse()) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top < 200) {
+          setActiveSection(id)
+          break
+        }
+      }
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const scrollToSection = useCallback((sectionId: string) => {
-    setIsOpen(false);
-    const element = document.getElementById(sectionId);
+    setIsOpen(false)
+    const element = document.getElementById(sectionId)
     if (element) {
-      const navbarHeight = 64; // 4rem or 64px
-      const elementPosition =
-        element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - navbarHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      const offset = element.getBoundingClientRect().top + window.pageYOffset - 80
+      window.scrollTo({ top: offset, behavior: "smooth" })
     }
-  }, []);
+  }, [])
+
+  const navItems = [
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+    { id: "contact", label: "Contact" },
+  ]
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 ${
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 80, damping: 20 }}
+      className={`fixed top-0 left-0 right-0 z-50 h-14 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-sm border-b border-foreground/10"
-          : "bg-transparent"
-      }`}>
-      <div className="container mx-auto px-4 h-full flex items-center justify-between md:justify-center">
-        <div className="flex items-center space-x-4 md:absolute md:left-4">
-          <Link href="/" passHref>
-            <Button
-              variant="ghost"
-              className="text-foreground hover:text-accent">
+          ? "bg-background/95 backdrop-blur-md border-b border-primary/20 shadow-[0_1px_12px_hsl(var(--primary)/0.05)]"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-6 md:px-8 max-w-5xl h-full flex items-center justify-between">
+        <div className="flex items-center gap-1">
+          <Link href="/">
+            <Button variant="ghost" className="brutal-button text-[10px] h-8 px-3">
               Home
             </Button>
           </Link>
-          {/* <Link href="/blog" passHref>
-            <Button
-              variant="ghost"
-              className="text-foreground hover:text-accent">
+          <Link href="/blog">
+            <Button variant="ghost" className="brutal-button text-[10px] h-8 px-3">
               Blog
             </Button>
-          </Link> */}
+          </Link>
         </div>
-        <div className="hidden md:flex items-center justify-center space-x-4">
-          <Button
-            variant="ghost"
-            className="text-foreground hover:text-accent"
-            onClick={() => scrollToSection("skills")}>
-            Skills
-          </Button>
-          <Button
-            variant="ghost"
-            className="text-foreground hover:text-accent"
-            onClick={() => scrollToSection("experience")}>
-            Experience
-          </Button>
-          <Button
-            variant="ghost"
-            className="text-foreground hover:text-accent"
-            onClick={() => scrollToSection("projects")}>
-            Projects
-          </Button>
-          <Button
-            variant="ghost"
-            className="text-foreground hover:text-accent"
-            onClick={() => scrollToSection("contact")}>
-            Contact
-          </Button>
+
+        <div className="hidden md:flex items-center gap-1">
+          {navItems.map((item) => (
+            <Button
+              key={item.id}
+              variant="ghost"
+              className={`brutal-button text-[10px] h-8 px-3 ${
+                activeSection === item.id
+                  ? "border-primary/40 text-primary"
+                  : ""
+              }`}
+              onClick={() => scrollToSection(item.id)}
+            >
+              {item.label}
+            </Button>
+          ))}
         </div>
-        <div className="flex items-center space-x-4 md:absolute md:right-4">
+
+        <div className="flex items-center gap-2">
           <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="md:hidden text-foreground">
-                <Menu className="h-6 w-6" />
+              <Button variant="ghost" size="icon" className="md:hidden brutal-button h-8 w-8 p-0">
+                <Menu className="h-4 w-4" />
               </Button>
             </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-full sm:w-[400px] p-0 full-screen-sidebar">
-              <nav className="flex flex-col h-full bg-background">
-                <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-                  <X className="h-8 w-8 text-foreground" />
-                  <span className="sr-only">Close</span>
+            <SheetContent side="right" className="w-full full-screen-sidebar bg-background border-l border-border p-0">
+              <nav className="flex flex-col h-full">
+                <SheetClose className="absolute right-4 top-4 brutal-button p-2">
+                  <X className="h-5 w-5" />
                 </SheetClose>
-                <div className="flex-grow flex flex-col items-center justify-center space-y-6">
-                  <Button
-                    variant="ghost"
-                    className="text-2xl text-foreground hover:text-accent"
-                    onClick={() => scrollToSection("skills")}>
-                    Skills
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="text-2xl text-foreground hover:text-accent"
-                    onClick={() => scrollToSection("experience")}>
-                    Experience
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="text-2xl text-foreground hover:text-accent"
-                    onClick={() => scrollToSection("projects")}>
-                    Projects
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="text-2xl text-foreground hover:text-accent"
-                    onClick={() => scrollToSection("contact")}>
-                    Contact
-                  </Button>
+                <div className="flex-grow flex flex-col items-center justify-center gap-4">
+                  {navItems.map((item) => (
+                    <Button
+                      key={item.id}
+                      variant="ghost"
+                      className="brutal-button text-sm px-8 py-4 font-sans"
+                      onClick={() => scrollToSection(item.id)}
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
                 </div>
               </nav>
             </SheetContent>
           </Sheet>
         </div>
       </div>
-    </nav>
-  );
+    </motion.nav>
+  )
 }

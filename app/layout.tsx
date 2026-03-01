@@ -1,16 +1,30 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import MagneticCursor from "@/components/MagneticCursor";
 import { Toaster } from "@/components/ui/toaster";
-import React from "react"; // Added import for React
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-const inter = Inter({ subsets: ["latin"] });
+import type React from "react";
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata = {
-  title: "Tejasvi's Portfolio",
-  description: "Personal portfolio and blog of Tejasvi",
+  title: "Tejasvi | Full-Stack Engineer",
+  description:
+    "Full-Stack Engineer specializing in distributed systems, ML/AI infrastructure, and high-performance web applications.",
 };
 
 export default function RootLayout({
@@ -19,13 +33,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html
+      lang="en"
+      className={`${jetbrainsMono.variable} ${spaceGrotesk.variable}`}>
+      <body className={jetbrainsMono.className}>
         <Analytics />
         <SpeedInsights />
+        <AnimatedBackground />
+        <MagneticCursor />
         <Navbar />
         <Header />
-        <main className="container mx-auto px-4 py-8 pt-16">{children}</main>
+        <main className="container mx-auto px-6 md:px-8 py-8 pt-24 relative z-10 max-w-5xl">
+          {children}
+        </main>
         <Toaster />
       </body>
     </html>

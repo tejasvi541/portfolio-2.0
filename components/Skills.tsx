@@ -1,99 +1,55 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Code, Server, Database, GitBranch, Globe, Cpu } from "lucide-react";
+"use client"
+
+import { motion } from "framer-motion"
 
 export default function Skills() {
   const skillCategories = [
-    {
-      name: "Languages",
-      icon: <Code className="w-6 h-6" />,
-      skills: [
-        "Python",
-        "JavaScript",
-        "Typescript",
-        "Go",
-        "Java",
-        "C++",
-        "Erlang",
-      ],
-    },
-    {
-      name: "Frontend",
-      icon: <Server className="w-6 h-6" />,
-      skills: [
-        "React.js",
-        "Next.js",
-        "TailwindCSS",
-        "Shadcn-UI",
-        "Ember.js",
-        "HTML5",
-        "CSS",
-      ],
-    },
-    {
-      name: "Backend",
-      icon: <Server className="w-6 h-6" />,
-      skills: [
-        "Node.js",
-        "Express",
-        "Bun",
-        "Honojs",
-        "Gin",
-        "Django",
-        "Flask",
-        "Java Spring",
-      ],
-    },
-    {
-      name: "Machine Learning & AI",
-      icon: <Cpu className="w-6 h-6" />,
-      skills: [
-        "TensorFlow",
-        "PyTorch",
-        "Langchain",
-        "Scikit-learn",
-        "Keras",
-        "OpenCV",
-        "Numpy",
-        "Pandas",
-        "Optuna",
-      ],
-    },
-    {
-      name: "Database",
-      icon: <Database className="w-6 h-6" />,
-      skills: ["MySQL", "PostgreSQL", "MongoDB", "Redis", "SQLite"],
-    },
-    {
-      name: "DevOps",
-      icon: <GitBranch className="w-6 h-6" />,
-      skills: ["Docker", "Kubernetes", "Jenkins", "AWS", "Github Actions"],
-    },
-  ];
+    { name: "Languages", skills: ["Java", "Python", "TypeScript", "JavaScript", "C++", "Go", "SQL"] },
+    { name: "Frontend", skills: ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind CSS", "Framer Motion"] },
+    { name: "Backend", skills: ["Node.js", "Spring Boot", "Express", "Django", "Flask", "REST APIs"] },
+    { name: "Databases", skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Drizzle ORM", "Prisma"] },
+    { name: "Infrastructure", skills: ["Docker", "AWS ECS", "Git", "Kafka", "Zookeeper", "Socket.io"] },
+    { name: "ML / AI", skills: ["PyTorch", "TensorFlow", "LLaMA", "Transformers", "Computer Vision"] },
+  ]
 
   return (
-    <section id="skills" className="mb-12">
-      <h2 className="text-2xl font-bold mb-4">Skills</h2>
+    <section id="skills" className="mb-32 relative z-10">
+      <div className="section-header">
+        <span className="index">01</span>
+        <h2 className="font-sans">Tech Stack</h2>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {skillCategories.map((category, index) => (
-          <Card
+          <motion.div
             key={index}
-            className="terminal-border terminal-glow bg-background text-foreground">
-            <CardContent className="p-4">
-              <div className="flex items-center mb-2">
-                {category.icon}
-                <h3 className="text-xl font-bold ml-2">{category.name}</h3>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="text-sm">
-                    {skill}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: index * 0.06, duration: 0.5 }}
+            className="war-card group"
+          >
+            <div className="text-xs text-primary font-sans font-semibold mb-4 flex items-center gap-2">
+              <span className="w-4 h-[1px] bg-primary inline-block" />
+              {category.name}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill, skillIndex) => (
+                <motion.span
+                  key={skillIndex}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.06 + skillIndex * 0.03 }}
+                  className="tech-tag"
+                >
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
         ))}
       </div>
     </section>
-  );
+  )
 }
