@@ -1,0 +1,29 @@
+.main {
+  background-color: black;
+  color: #00ff00;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.tile {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.tile:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
