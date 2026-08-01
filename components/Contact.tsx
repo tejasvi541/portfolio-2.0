@@ -66,6 +66,13 @@ export default function Contact() {
         <h2 className="font-sans">Get in Touch</h2>
       </div>
 
+      <p className="text-xs font-mono text-muted-foreground mb-6 max-w-2xl">
+        Toronto, ON, Canada &middot;{" "}
+        <a href="mailto:t3jasvii@gmail.com" className="text-primary hover:underline">
+          t3jasvii@gmail.com
+        </a>
+      </p>
+
       <motion.form
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

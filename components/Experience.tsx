@@ -11,10 +11,11 @@ export default function Experience() {
       period: "Oct 2025 -- Present",
       status: "Current",
       logs: [
-        { tag: "OPTIMIZATION", text: "Engineered OLAP grid ecosystem; reduced network overhead by 60% via serialization pipelines" },
-        { tag: "RENDERING", text: "Re-architected frontend layout engine. Reconciled Flexbox/JS virtualization for sub-millisecond rendering" },
-        { tag: "STABILITY", text: "Orchestrated client-side semaphore locking to resolve distributed deadlocks between React & Java sessions" },
-        { tag: "INTEGRITY", text: "Implemented pre-emptive DAG traversal validation to prevent heap corruption in disjointed hierarchies" },
+        { tag: "SYNC", text: "Engineered a unified OLAP state synchronization layer bridging in-memory cubes with bulk reload APIs, enforcing a strict backend single-source-of-truth model that prevented cross-session data divergence" },
+        { tag: "STABILITY", text: "Stabilized multi-dimensional query execution with pre-validation guards on OLAP INTERSECT/search endpoints, eliminating recurring Bad Request cascades without adding latency" },
+        { tag: "PIPELINE", text: "Refactored backend orchestration into a deterministic Persist → Cache Mutate → Publish pipeline, decoupling transactional writes from async eventing" },
+        { tag: "CONCURRENCY", text: "Eliminated race conditions, duplicate cache invalidations, and non-deterministic state during high-volume reloads, restoring thread-safe execution" },
+        { tag: "PARSING", text: "Extended ANTLR-based parsing and AST evaluation with dependency-aware stale marking, deterministically re-triggering formula recomputation across multi-threaded pipelines" },
       ],
     },
     {

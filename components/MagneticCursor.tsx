@@ -6,7 +6,6 @@ interface Trail {
   x: number
   y: number
   life: number
-  hue: number
 }
 
 export default function MagneticCursor() {
@@ -20,7 +19,7 @@ export default function MagneticCursor() {
   const [isClicking, setIsClicking] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
   const raf = useRef<number>(0)
-  const hueRef = useRef(160) // start at primary hue
+  const primaryHsl = useRef("174 68% 42%")
 
   useEffect(() => {
     setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0)
@@ -39,23 +38,20 @@ export default function MagneticCursor() {
     }
 
     // Update trail
-    hueRef.current = (hueRef.current + 0.3) % 360
     trails.current = trails.current
-      .map((t) => ({ ...t, life: t.life - 0.02 }))
+      .map((t) => ({ ...t, life: t.life - 0.035 }))
       .filter((t) => t.life > 0)
 
-    // Draw trails on canvas
+    // Draw trails on canvas as fading pixel squares
     const canvas = canvasRef.current
     if (canvas) {
       const ctx = canvas.getContext("2d")
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         for (const trail of trails.current) {
-          const size = trail.life * 3
-          ctx.beginPath()
-          ctx.arc(trail.x, trail.y, size, 0, Math.PI * 2)
-          ctx.fillStyle = `hsla(${trail.hue}, 100%, 70%, ${trail.life * 0.4})`
-          ctx.fill()
+          const size = trail.life * 5
+          ctx.fillStyle = `hsla(${primaryHsl.current}, ${trail.life * 0.35})`
+          ctx.fillRect(trail.x - size / 2, trail.y - size / 2, size, size)
         }
       }
     }
@@ -72,15 +68,16 @@ export default function MagneticCursor() {
       canvas.height = window.innerHeight
     }
 
+    primaryHsl.current = getComputedStyle(document.documentElement).getPropertyValue("--primary").trim()
+
     const handleMove = (e: MouseEvent) => {
       target.current = { x: e.clientX, y: e.clientY }
       trails.current.push({
         x: e.clientX,
         y: e.clientY,
         life: 1,
-        hue: hueRef.current,
       })
-      if (trails.current.length > 40) trails.current.shift()
+      if (trails.current.length > 24) trails.current.shift()
     }
 
     const handleDown = () => setIsClicking(true)

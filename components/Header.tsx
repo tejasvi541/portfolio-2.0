@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Github, Twitter, FileText, Linkedin, ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
 
-const titles = ["Full-Stack Engineer", "AI/ML Engineer", "Systems Architect"]
+const titles = ["Full Stack Engineer", "AI/ML Engineer", "Distributed Systems"]
 
 export default function Header() {
   const [titleIndex, setTitleIndex] = useState(0)
@@ -43,7 +43,7 @@ export default function Header() {
     { href: "https://x.com/weinsimulation", icon: Twitter, label: "X" },
     { href: "https://linkedin.com/in/t3jasvi", icon: Linkedin, label: "LinkedIn" },
     {
-      href: "https://www.dropbox.com/scl/fi/2ocu8ompjf6v5374r1xgr/Resume_Tejasvi_Tech.pdf?rlkey=cyifgx9ii3tuulz7stxkh0sma&st=vp8x3w09&dl=0",
+      href: "/resume.pdf",
       icon: FileText,
       label: "Resume",
     },
@@ -72,7 +72,7 @@ export default function Header() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight font-sans mb-5 text-balance">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight font-sans mb-5 text-balance">
                 Tejasvi
               </h1>
               <div className="flex items-center gap-3 mb-5">
@@ -83,8 +83,9 @@ export default function Header() {
                 </span>
               </div>
               <p className="text-sm text-muted-foreground max-w-lg leading-relaxed">
-                Building high-performance web applications, distributed systems,
-                and ML/AI infrastructure. Focused on shipping software that scales.
+                Full-stack engineer building distributed backend systems and
+                ML/AI infrastructure. Currently at Limelight Software in Toronto,
+                shipping OLAP state synchronization and real-time data pipelines.
               </p>
             </motion.div>
 

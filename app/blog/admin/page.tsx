@@ -4,9 +4,10 @@ import type React from "react"
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Plus, Edit, Trash2, Eye, EyeOff, Save, X, Upload, FileText, Lock } from "lucide-react"
+import { Plus, Edit, Trash2, Eye, EyeOff, Save, X, Upload, FileText, Lock, LogOut } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { getBlogPostsClient, saveBlogPost, deleteBlogPost, generateSlug, type BlogPost } from "@/lib/blog-client"
+import { generateSlug } from "@/lib/blog-client"
+import type { BlogPost } from "@/lib/blog"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import MarkdownEditor from "@/components/MarkdownEditor"
@@ -16,7 +17,9 @@ export default function BlogAdminPage() {
   const [passwordInput, setPasswordInput] = useState("")
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [isEditing, setIsEditing] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
+  const [originalSlug, setOriginalSlug] = useState<string | undefined>(undefined)
   const [editingPost, setEditingPost] = useState<Partial<BlogPost>>({
     title: "",
     content: "",
@@ -60,9 +63,21 @@ export default function BlogAdminPage() {
     }
   }
 
-  const loadPosts = () => {
-    const loadedPosts = getBlogPostsClient()
-    setPosts(loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()))
+  const handleLogout = async () => {
+    await fetch("/api/blog-auth", { method: "DELETE" })
+    setAuthState("unauthenticated")
+    setPosts([])
+  }
+
+  const loadPosts = async () => {
+    try {
+      const res = await fetch("/api/blog-posts")
+      if (!res.ok) throw new Error("Failed to load posts")
+      const data = await res.json()
+      setPosts((data.posts as BlogPost[]).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()))
+    } catch {
+      toast({ variant: "destructive", title: "Couldn't load posts", description: "Try refreshing the page." })
+    }
   }
 
   const parseFrontmatter = (content: string) => {
@@ -99,6 +114,7 @@ export default function BlogAdminPage() {
           slug: generateSlug(frontmatter.title || mdFile.name.replace(".md", "")),
           date: frontmatter.date || new Date().toISOString().split("T")[0],
         })
+        setOriginalSlug(undefined)
         setIsEditing(true)
         toast({ title: "File imported", description: `Loaded: ${mdFile.name}` })
       }
@@ -108,26 +124,53 @@ export default function BlogAdminPage() {
 
   const handleCreateNew = () => {
     setEditingPost({ title: "", content: "", tags: [], published: true, slug: "", date: new Date().toISOString().split("T")[0] })
+    setOriginalSlug(undefined)
     setIsEditing(true)
   }
 
-  const handleSave = () => {
+  const handleEdit = (post: BlogPost) => {
+    setEditingPost(post)
+    setOriginalSlug(post.slug)
+    setIsEditing(true)
+  }
+
+  const handleSave = async () => {
     if (!editingPost.title || !editingPost.content) {
       toast({ variant: "destructive", title: "Missing fields", description: "Title and content are required." })
       return
     }
     const slug = editingPost.slug || generateSlug(editingPost.title)
-    saveBlogPost({ ...editingPost, slug } as Omit<BlogPost, "id" | "createdAt" | "updatedAt">)
-    toast({ title: "Post saved", description: "Your changes have been saved." })
-    setIsEditing(false)
-    loadPosts()
+    setIsSaving(true)
+    try {
+      const res = await fetch("/api/blog-posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...editingPost, slug, previousSlug: originalSlug }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to publish post")
+      toast({ title: "Post published", description: "Vercel is redeploying — it'll be live in about a minute." })
+      setIsEditing(false)
+      loadPosts()
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Something went wrong."
+      toast({ variant: "destructive", title: "Save failed", description: message })
+    } finally {
+      setIsSaving(false)
+    }
   }
 
-  const handleDelete = (slug: string) => {
-    if (confirm("Confirm deletion?")) {
-      deleteBlogPost(slug)
-      toast({ title: "Post deleted", description: "The post has been removed." })
+  const handleDelete = async (slug: string) => {
+    if (!confirm("Confirm deletion?")) return
+    try {
+      const res = await fetch(`/api/blog-posts?slug=${encodeURIComponent(slug)}`, { method: "DELETE" })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || "Failed to delete post")
+      toast({ title: "Post deleted", description: "Vercel is redeploying to remove it from the live site." })
       loadPosts()
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Something went wrong."
+      toast({ variant: "destructive", title: "Delete failed", description: message })
     }
   }
 
@@ -185,7 +228,7 @@ export default function BlogAdminPage() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="war-card">
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
             <div>
-              <div className="status-online mb-2">{editingPost.slug ? "Editing" : "New Post"}</div>
+              <div className="status-online mb-2">{originalSlug ? "Editing" : "New Post"}</div>
               <h1 className="text-lg font-sans font-bold">Post Editor</h1>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setIsEditing(false)} className="brutal-button h-8 w-8 p-0">
@@ -261,9 +304,14 @@ export default function BlogAdminPage() {
             </label>
 
             <div className="flex gap-2 pt-4 border-t border-border">
-              <Button onClick={handleSave} className="brutal-button flex-1 h-10 text-[10px]"><Save className="h-3 w-3 mr-2" />Save</Button>
+              <Button onClick={handleSave} disabled={isSaving} className="brutal-button flex-1 h-10 text-[10px] disabled:opacity-50">
+                <Save className="h-3 w-3 mr-2" />{isSaving ? "Publishing…" : "Save"}
+              </Button>
               <Button variant="outline" onClick={() => setIsEditing(false)} className="brutal-button h-10 text-[10px]">Cancel</Button>
             </div>
+            <p className="text-[10px] font-mono text-muted-foreground">
+              Saving commits the post to GitHub, which triggers a Vercel redeploy — it appears on the live blog roughly a minute later.
+            </p>
           </div>
         </motion.div>
       </div>
@@ -283,6 +331,7 @@ export default function BlogAdminPage() {
               <Button variant="outline" className="brutal-button text-[10px] h-8 bg-transparent"><Eye className="h-3 w-3 mr-2" />View Blog</Button>
             </Link>
             <Button onClick={handleCreateNew} className="brutal-button text-[10px] h-8"><Plus className="h-3 w-3 mr-2" />New Post</Button>
+            <Button variant="outline" onClick={handleLogout} className="brutal-button text-[10px] h-8 bg-transparent"><LogOut className="h-3 w-3 mr-2" />Log out</Button>
           </div>
         </div>
       </motion.div>
@@ -312,7 +361,7 @@ export default function BlogAdminPage() {
           </div>
         ) : (
           posts.map((post, index) => (
-            <motion.div key={post.id} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }} className="war-card">
+            <motion.div key={post.slug} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }} className="war-card">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
@@ -328,7 +377,7 @@ export default function BlogAdminPage() {
                   )}
                 </div>
                 <div className="flex gap-2 ml-4">
-                  <Button variant="outline" size="icon" onClick={() => { setEditingPost(post); setIsEditing(true) }} className="brutal-button h-8 w-8 p-0"><Edit className="h-3 w-3" /></Button>
+                  <Button variant="outline" size="icon" onClick={() => handleEdit(post)} className="brutal-button h-8 w-8 p-0"><Edit className="h-3 w-3" /></Button>
                   <Button variant="outline" size="icon" onClick={() => handleDelete(post.slug)} className="brutal-button h-8 w-8 p-0 hover:border-red-500 hover:text-red-500"><Trash2 className="h-3 w-3" /></Button>
                 </div>
               </div>

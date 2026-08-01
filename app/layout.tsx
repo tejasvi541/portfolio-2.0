@@ -1,5 +1,5 @@
 import "./globals.css";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Silkscreen } from "next/font/google";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 import AnimatedBackground from "@/components/AnimatedBackground";
@@ -15,8 +15,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const silkscreen = Silkscreen({
   subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -35,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jetbrainsMono.variable} ${spaceGrotesk.variable}`}>
+      className={`${jetbrainsMono.variable} ${silkscreen.variable}`}>
       <body className={jetbrainsMono.className}>
         <Analytics />
         <SpeedInsights />

@@ -5,17 +5,17 @@ import { motion } from "framer-motion"
 export default function Education() {
   const education = [
     {
-      degree: "Master's in Applied Computer Science",
+      degree: "Masters in Computer Science (Applied)",
       school: "Concordia University",
       location: "Montreal, QC",
-      year: "2024 -- 2025",
+      year: "Jan 2024 -- May 2025",
       focus: "AI/ML, Scalable Systems, Full-Stack Engineering",
     },
     {
-      degree: "Bachelor's in Computer Science & Engineering",
+      degree: "B.Tech. Computer Science & Engineering",
       school: "Kurukshetra University",
-      location: "India",
-      year: "2019 -- 2023",
+      location: "Kurukshetra, India",
+      year: "Aug 2019 -- Sep 2023",
       focus: "Software Engineering, Data Structures, Algorithms",
     },
   ]

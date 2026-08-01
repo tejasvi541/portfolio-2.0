@@ -1,6 +1,9 @@
-#### Tags :: [[Data Structures & Algorithms]]
-
-# Union-Find in Graphs: Mastering Disjoint Sets with Union by Rank and Size
+---
+title: "Union-Find in Graphs: Mastering Disjoint Sets with Union by Rank and Size"
+date: "2025-01-23"
+tags: ["Data Structures & Algorithms"]
+published: true
+---
 
 ![Union-Find Data Structure](https://algs4.cs.princeton.edu/15uf/images/quick-union-overview.png)
 

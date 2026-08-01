@@ -4,12 +4,12 @@ import { motion } from "framer-motion"
 
 export default function Skills() {
   const skillCategories = [
-    { name: "Languages", skills: ["Java", "Python", "TypeScript", "JavaScript", "C++", "Go", "SQL"] },
-    { name: "Frontend", skills: ["React.js", "Next.js", "Vue.js", "Redux", "Tailwind CSS", "Framer Motion"] },
-    { name: "Backend", skills: ["Node.js", "Spring Boot", "Express", "Django", "Flask", "REST APIs"] },
-    { name: "Databases", skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Drizzle ORM", "Prisma"] },
-    { name: "Infrastructure", skills: ["Docker", "AWS ECS", "Git", "Kafka", "Zookeeper", "Socket.io"] },
-    { name: "ML / AI", skills: ["PyTorch", "TensorFlow", "LLaMA", "Transformers", "Computer Vision"] },
+    { name: "Languages", skills: ["Java", "Python", "TypeScript", "JavaScript", "C++", "SQL", "Shell", "Bash"] },
+    { name: "Backend", skills: ["Spring Boot", "Hibernate", "JPA", "Node.js", "Next.js", "Express.js", "Hono.js", "FastAPI"] },
+    { name: "Frontend", skills: ["React.js", "Next.js", "Angular.js", "React Native", "Redux", "Tailwind CSS", "Shadcn UI"] },
+    { name: "Databases & Messaging", skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Kafka", "Zookeeper", "Elasticsearch", "Drizzle ORM", "Prisma"] },
+    { name: "Cloud & DevOps", skills: ["AWS (ECS, S3, EC2)", "CloudWatch", "Docker", "Kubernetes", "CI/CD", "Jenkins", "GitHub Actions", "Microservices"] },
+    { name: "Tools & ML/AI", skills: ["Git", "REST", "gRPC", "WebSockets", "JWT", "Linux", "PyTorch", "TensorFlow", "RAG", "LangChain", "GenAI"] },
   ]
 
   return (
