@@ -1,26 +1,15 @@
 import "./globals.css";
-import { JetBrains_Mono, Silkscreen } from "next/font/google";
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
-import AnimatedBackground from "@/components/AnimatedBackground";
-import MagneticCursor from "@/components/MagneticCursor";
+import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type React from "react";
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const silkscreen = Silkscreen({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
+// Arial Black / Helvetica / Times New Roman are OS defaults on every
+// consumer platform — no webfonts needed (see DESIGN.md's "Note on Font
+// Substitutes"). Font stacks live in app/globals.css.
 
 export const metadata = {
   title: "Tejasvi | Full-Stack Engineer",
@@ -34,19 +23,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${jetbrainsMono.variable} ${silkscreen.variable}`}>
-      <body className={jetbrainsMono.className}>
+    <html lang="en">
+      <head>
+        {/* Light is the default — this only ever adds the "dark" class, and
+            only if the visitor previously opted in, so there's no flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();",
+          }}
+        />
+      </head>
+      <body>
         <Analytics />
         <SpeedInsights />
-        <AnimatedBackground />
-        <MagneticCursor />
-        <Navbar />
-        <Header />
-        <main className="container mx-auto px-6 md:px-8 py-8 pt-24 relative z-10 max-w-5xl">
-          {children}
-        </main>
+        <div className="page-frame flex flex-col">
+          <Navbar />
+          <Header />
+          <main className="container mx-auto px-6 md:px-8 py-8 pt-24 flex-1 w-full max-w-5xl">
+            {children}
+          </main>
+          <Footer />
+        </div>
         <Toaster />
       </body>
     </html>

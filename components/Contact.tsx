@@ -60,29 +60,37 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="mb-32 relative z-10">
+    <section id="contact" className="mb-24">
       <div className="section-header">
-        <span className="index">04</span>
-        <h2 className="font-sans">Get in Touch</h2>
+        <span className="index">05</span>
+        <h2>Get in Touch</h2>
       </div>
 
-      <p className="text-xs font-mono text-muted-foreground mb-6 max-w-2xl">
-        Toronto, ON, Canada &middot;{" "}
-        <a href="mailto:t3jasvii@gmail.com" className="text-primary hover:underline">
-          t3jasvii@gmail.com
-        </a>
-      </p>
+      {/* cta-block-red */}
+      <div
+        className="max-w-2xl mb-6 p-5 border border-border"
+        style={{ background: "hsl(var(--primary))", color: "hsl(var(--primary-foreground))" }}
+      >
+        <p className="text-sm font-mono leading-relaxed">
+          Based in Toronto, ON, Canada. Open to full-stack, backend, and ML/AI engineering
+          roles &mdash; reach out at{" "}
+          <a href="mailto:t3jasvii@gmail.com" className="underline" style={{ color: "hsl(var(--primary-foreground))" }}>
+            t3jasvii@gmail.com
+          </a>{" "}
+          or use the form below.
+        </p>
+      </div>
 
       <motion.form
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         onSubmit={handleSubmit}
-        className="war-card max-w-2xl"
+        className="border border-border p-6 max-w-2xl"
       >
         <div className="space-y-6">
           <div>
-            <label className="block text-[10px] font-mono text-primary mb-2">Name</label>
+            <label className="block text-[10px] font-sans font-bold uppercase mb-2">Name</label>
             <Input
               type="text"
               name="name"
@@ -93,7 +101,7 @@ export default function Contact() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-mono text-primary mb-2">Email</label>
+            <label className="block text-[10px] font-sans font-bold uppercase mb-2">Email</label>
             <Input
               type="email"
               name="email"
@@ -104,7 +112,7 @@ export default function Contact() {
           </div>
 
           <div>
-            <label className="block text-[10px] font-mono text-primary mb-2">Message</label>
+            <label className="block text-[10px] font-sans font-bold uppercase mb-2">Message</label>
             <Textarea
               name="message"
               placeholder="Your message..."
@@ -114,16 +122,14 @@ export default function Contact() {
             />
           </div>
 
-          <motion.button
+          <button
             type="submit"
             disabled={isLoading}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
             className="brutal-button w-full h-12 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             <Send className="w-3.5 h-3.5" />
             {isLoading ? "Sending..." : "Send Message"}
-          </motion.button>
+          </button>
         </div>
       </motion.form>
     </section>

@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion"
 
+const tints = ["tint-steel", "tint-lime"]
+
 export default function Experience() {
   const experiences = [
     {
@@ -33,10 +35,10 @@ export default function Experience() {
   ]
 
   return (
-    <section id="experience" className="mb-32 relative z-10">
+    <section id="experience" className="mb-24">
       <div className="section-header">
         <span className="index">02</span>
-        <h2 className="font-sans">Experience</h2>
+        <h2>Experience</h2>
       </div>
 
       <div className="space-y-6">
@@ -47,9 +49,9 @@ export default function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: index * 0.1, duration: 0.5 }}
-            className="war-card"
+            className="border border-border overflow-hidden"
           >
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6 pb-4 border-b border-border">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 px-6 py-4 border-b border-border bg-background">
               <div>
                 <h3 className="text-base font-sans font-bold mb-1">{exp.title}</h3>
                 <p className="text-xs text-muted-foreground font-mono">
@@ -58,9 +60,9 @@ export default function Experience() {
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
                 <span className="text-[10px] text-muted-foreground font-mono">{exp.period}</span>
-                <span className={`text-[10px] font-mono px-2 py-1 border ${
+                <span className={`text-[10px] font-sans font-bold uppercase px-2 py-1 border ${
                   exp.status === "Current"
-                    ? "border-primary text-primary bg-primary/5"
+                    ? "border-primary text-primary"
                     : "border-border text-muted-foreground"
                 }`}>
                   {exp.status}
@@ -68,19 +70,12 @@ export default function Experience() {
               </div>
             </div>
 
-            <div className="space-y-3 terminal-log">
+            <div className={`${tints[index % tints.length]} space-y-3 terminal-log p-6`}>
               {exp.logs.map((log, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.05 * i + 0.2 }}
-                  className="flex items-start gap-3"
-                >
+                <div key={i} className="flex items-start gap-3">
                   <span className="tag flex-shrink-0">[{log.tag}]</span>
                   <span>{log.text}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.div>

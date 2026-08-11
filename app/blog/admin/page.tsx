@@ -82,13 +82,13 @@ export default function BlogAdminPage() {
 
   const parseFrontmatter = (content: string) => {
     const match = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/)
-    if (!match) return { frontmatter: {} as Record<string, any>, content }
-    const fm: Record<string, any> = {}
+    if (!match) return { frontmatter: {} as Record<string, string | string[]>, content }
+    const fm: Record<string, string | string[]> = {}
     match[1].split("\n").forEach((line) => {
       const idx = line.indexOf(":")
       if (idx > 0) {
         const key = line.slice(0, idx).trim()
-        let val: any = line.slice(idx + 1).trim()
+        let val: string | string[] = line.slice(idx + 1).trim()
         if (val.startsWith("[") && val.endsWith("]")) val = val.slice(1, -1).split(",").map((v: string) => v.trim().replace(/['"]/g, ""))
         if (typeof val === "string" && val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1)
         fm[key] = val
@@ -106,13 +106,16 @@ export default function BlogAdminPage() {
       reader.onload = (event) => {
         const text = event.target?.result as string
         const { frontmatter, content } = parseFrontmatter(text)
+        const fmTitle = typeof frontmatter.title === "string" ? frontmatter.title : undefined
+        const fmDate = typeof frontmatter.date === "string" ? frontmatter.date : undefined
+        const title = fmTitle || mdFile.name.replace(".md", "")
         setEditingPost({
-          title: frontmatter.title || mdFile.name.replace(".md", ""),
+          title,
           content: content.trim(),
           tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
           published: true,
-          slug: generateSlug(frontmatter.title || mdFile.name.replace(".md", "")),
-          date: frontmatter.date || new Date().toISOString().split("T")[0],
+          slug: generateSlug(title),
+          date: fmDate || new Date().toISOString().split("T")[0],
         })
         setOriginalSlug(undefined)
         setIsEditing(true)

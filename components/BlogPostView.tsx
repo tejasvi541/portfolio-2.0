@@ -9,8 +9,42 @@ import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
 import rehypeRaw from "rehype-raw"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter"
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism"
+import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash"
+import c from "react-syntax-highlighter/dist/esm/languages/prism/c"
+import cpp from "react-syntax-highlighter/dist/esm/languages/prism/cpp"
+import go from "react-syntax-highlighter/dist/esm/languages/prism/go"
+import java from "react-syntax-highlighter/dist/esm/languages/prism/java"
+import javascript from "react-syntax-highlighter/dist/esm/languages/prism/javascript"
+import json from "react-syntax-highlighter/dist/esm/languages/prism/json"
+import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx"
+import markdown from "react-syntax-highlighter/dist/esm/languages/prism/markdown"
+import python from "react-syntax-highlighter/dist/esm/languages/prism/python"
+import rust from "react-syntax-highlighter/dist/esm/languages/prism/rust"
+import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql"
+import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx"
+import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typescript"
+import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml"
+
+// Only the languages actually likely to show up in these posts are
+// registered — the full Prism bundle (all ~290 languages) was previously
+// shipped on every /blog/[slug] page load regardless of content.
+SyntaxHighlighter.registerLanguage("bash", bash)
+SyntaxHighlighter.registerLanguage("c", c)
+SyntaxHighlighter.registerLanguage("cpp", cpp)
+SyntaxHighlighter.registerLanguage("go", go)
+SyntaxHighlighter.registerLanguage("java", java)
+SyntaxHighlighter.registerLanguage("javascript", javascript)
+SyntaxHighlighter.registerLanguage("json", json)
+SyntaxHighlighter.registerLanguage("jsx", jsx)
+SyntaxHighlighter.registerLanguage("markdown", markdown)
+SyntaxHighlighter.registerLanguage("python", python)
+SyntaxHighlighter.registerLanguage("rust", rust)
+SyntaxHighlighter.registerLanguage("sql", sql)
+SyntaxHighlighter.registerLanguage("tsx", tsx)
+SyntaxHighlighter.registerLanguage("typescript", typescript)
+SyntaxHighlighter.registerLanguage("yaml", yaml)
 import { motion } from "framer-motion"
 import "katex/dist/katex.min.css"
 
@@ -36,8 +70,6 @@ export default function BlogPostView({ post }: { post: BlogPost }) {
         className="border border-border overflow-hidden"
         style={{ background: "hsl(var(--dracula-bg))" }}
       >
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-dracula-purple via-dracula-cyan to-dracula-green" />
-
         <header className="p-6 md:p-8 border-b border-border">
           <motion.h1
             initial={{ opacity: 0, y: -8 }}
@@ -80,9 +112,12 @@ export default function BlogPostView({ post }: { post: BlogPost }) {
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[rehypeKatex, rehypeRaw]}
             components={{
-              code({ node, inline, className, children, ...props }: any) {
+              // node/style/ref are pulled out so they don't leak into (and conflict
+              // with) the SyntaxHighlighter/code elements below, which set their own.
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              code({ node, className, children, style, ref, ...rest }) {
                 const match = /language-(\w+)/.exec(className || "")
-                return !inline && match ? (
+                return match ? (
                   <SyntaxHighlighter
                     style={dracula}
                     language={match[1]}
@@ -94,7 +129,7 @@ export default function BlogPostView({ post }: { post: BlogPost }) {
                       padding: "16px",
                       margin: "16px 0",
                     }}
-                    {...props}
+                    {...rest}
                   >
                     {String(children).replace(/\n$/, "")}
                   </SyntaxHighlighter>
@@ -106,9 +141,9 @@ export default function BlogPostView({ post }: { post: BlogPost }) {
                       color: "hsl(var(--code-accent))",
                       padding: "2px 6px",
                       fontSize: "12px",
-                      fontFamily: "var(--font-mono)",
+                      fontFamily: "var(--font-code)",
                     }}
-                    {...props}
+                    {...rest}
                   >
                     {children}
                   </code>
