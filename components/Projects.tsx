@@ -3,6 +3,8 @@
 import { ExternalLink } from "lucide-react"
 import { motion } from "framer-motion"
 
+const tints = ["tint-sage", "tint-salmon", "tint-peach", "tint-lime", "tint-sky", "tint-periwinkle"]
+
 export default function Projects() {
   const projects = [
     {
@@ -50,10 +52,10 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="mb-32 relative z-10">
+    <section id="projects" className="mb-24">
       <div className="section-header">
         <span className="index">03</span>
-        <h2 className="font-sans">Projects</h2>
+        <h2>Projects</h2>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -67,28 +69,30 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: index * 0.05, duration: 0.5 }}
-            className="war-card group block"
+            className="border border-border overflow-hidden group block"
           >
-            <div className="flex items-start justify-between mb-3">
+            <div className="bg-background flex items-start justify-between px-5 py-3 border-b border-border">
               <div className="flex-1">
-                <span className="text-[10px] text-primary font-mono opacity-50">#{project.id}</span>
+                <span className="text-[10px] text-primary font-sans font-bold">#{project.id}</span>
                 <h3 className="text-sm font-sans font-bold mt-1 leading-snug group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
               </div>
-              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1 ml-3" />
+              <ExternalLink className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0 mt-1 ml-3" />
             </div>
 
-            <p className="text-[11px] text-muted-foreground mb-4 leading-relaxed line-clamp-2">
-              {project.description}
-            </p>
+            <div className={`${tints[index % tints.length]} p-5`}>
+              <p className="text-[12px] mb-4 leading-relaxed line-clamp-2 font-mono">
+                {project.description}
+              </p>
 
-            <div className="flex flex-wrap gap-1.5">
-              {project.tech.map((tech, techIndex) => (
-                <span key={techIndex} className="tech-tag text-[9px] py-[2px] px-2">
-                  {tech}
-                </span>
-              ))}
+              <div className="flex flex-wrap gap-1.5">
+                {project.tech.map((tech) => (
+                  <span key={tech} className="tech-tag text-[9px] py-[2px] px-2">
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.a>
         ))}

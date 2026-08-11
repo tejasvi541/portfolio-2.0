@@ -1,21 +1,11 @@
 "use client"
 
-import { useCallback } from "react"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 import type { BlogPost } from "@/lib/blog"
-import { Calendar, Tag, ArrowUpRight, MousePointerClick } from "lucide-react"
+import { Calendar, Tag, ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function BlogList({ posts }: { posts: BlogPost[] }) {
-  const router = useRouter()
-
-  const handleDoubleClick = useCallback(
-    (slug: string) => {
-      router.push(`/blog/${slug}`)
-    },
-    [router],
-  )
-
   return (
     <div className="max-w-3xl mx-auto relative z-10">
       {/* Header */}
@@ -25,7 +15,6 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
         className="p-6 mb-10 border border-border"
         style={{ background: "hsl(var(--dracula-bg))" }}
       >
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-dracula-purple via-dracula-cyan to-dracula-green" />
         <div className="flex items-center justify-between">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -33,12 +22,6 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
               <span className="text-[10px] font-mono text-dracula-comment">Knowledge Base</span>
             </div>
             <h1 className="text-xl font-sans font-bold text-dracula-foreground">Technical Writings</h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 text-[9px] font-mono px-2.5 py-1 bg-dracula-current text-dracula-comment">
-              <MousePointerClick className="w-3 h-3" />
-              <span>Double-click to read</span>
-            </div>
           </div>
         </div>
       </motion.div>
@@ -62,50 +45,50 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.04, duration: 0.4 }}
-              onDoubleClick={() => handleDoubleClick(post.slug)}
-              className="p-5 border border-border group transition-all duration-200 hover:border-dracula-purple/40 hover:shadow-[0_0_20px_hsl(var(--dracula-purple)/0.06)]"
-              style={{ background: "hsl(var(--dracula-bg))", cursor: "none" }}
-              role="link"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === "Enter") handleDoubleClick(post.slug) }}
             >
-              <div className="flex items-start justify-between mb-2">
-                <h2 className="text-sm font-sans font-bold text-dracula-foreground leading-snug">
-                  {post.title}
-                </h2>
-                <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 ml-3 text-dracula-cyan opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-
-              <div className="flex items-center gap-4 text-[10px] font-mono text-dracula-comment mb-3">
-                <div className="flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
-                  <span>
-                    {new Date(post.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
+              <Link
+                href={`/blog/${post.slug}`}
+                className="block p-5 border border-border group transition-colors duration-150 hover:border-primary"
+                style={{ background: "hsl(var(--dracula-bg))" }}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <h2 className="text-sm font-sans font-bold text-dracula-foreground leading-snug">
+                    {post.title}
+                  </h2>
+                  <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 ml-3 text-dracula-cyan opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-              </div>
 
-              <p className="text-[11px] font-mono text-dracula-foreground/60 mb-3 line-clamp-2 leading-relaxed">
-                {post.content.replace(/[#*_`[\]]/g, "").substring(0, 200)}...
-              </p>
-
-              {post.tags && post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-[2px] border border-dracula-green/30 text-dracula-green bg-dracula-current/50"
-                    >
-                      <Tag className="h-2 w-2" />
-                      {tag}
+                <div className="flex items-center gap-4 text-[10px] font-mono text-dracula-comment mb-3">
+                  <div className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    <span>
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </span>
-                  ))}
+                  </div>
                 </div>
-              )}
+
+                <p className="text-[11px] font-mono text-dracula-foreground/60 mb-3 line-clamp-2 leading-relaxed">
+                  {post.content.replace(/[#*_`[\]]/g, "").substring(0, 200)}...
+                </p>
+
+                {post.tags && post.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-[2px] border border-dracula-green/30 text-dracula-green bg-dracula-current/50"
+                      >
+                        <Tag className="h-2 w-2" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </Link>
             </motion.div>
           ))}
         </div>

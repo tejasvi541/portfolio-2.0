@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion"
 
+const tints = ["tint-sage", "tint-salmon", "tint-peach", "tint-lime", "tint-sky", "tint-periwinkle"]
+
 export default function Skills() {
   const skillCategories = [
     { name: "Languages", skills: ["Java", "Python", "TypeScript", "JavaScript", "C++", "SQL", "Shell", "Bash"] },
@@ -13,10 +15,10 @@ export default function Skills() {
   ]
 
   return (
-    <section id="skills" className="mb-32 relative z-10">
+    <section id="skills" className="mb-24">
       <div className="section-header">
         <span className="index">01</span>
-        <h2 className="font-sans">Tech Stack</h2>
+        <h2>Tech Stack</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -27,24 +29,16 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: index * 0.06, duration: 0.5 }}
-            className="war-card group"
+            className="border border-border overflow-hidden"
           >
-            <div className="text-xs text-primary font-sans font-semibold mb-4 flex items-center gap-2">
-              <span className="w-4 h-[1px] bg-primary inline-block" />
+            <div className="bg-background text-xs font-sans font-bold uppercase px-4 py-3 border-b border-border">
               {category.name}
             </div>
-            <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill, skillIndex) => (
-                <motion.span
-                  key={skillIndex}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.06 + skillIndex * 0.03 }}
-                  className="tech-tag"
-                >
+            <div className={`${tints[index % tints.length]} flex flex-wrap gap-2 p-4`}>
+              {category.skills.map((skill) => (
+                <span key={skill} className="tech-tag">
                   {skill}
-                </motion.span>
+                </span>
               ))}
             </div>
           </motion.div>

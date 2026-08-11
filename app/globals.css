@@ -1,96 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: 200 14% 9%;
-  --foreground: 45 12% 88%;
-  --card: 200 12% 13%;
-  --card-foreground: 45 12% 88%;
-  --popover: 200 12% 13%;
-  --popover-foreground: 45 12% 88%;
-  --primary: 174 68% 42%;
-  --primary-foreground: 200 15% 6%;
-  --secondary: 0 0% 62%;
-  --secondary-foreground: 200 15% 6%;
-  --accent: 32 88% 55%;
-  --accent-foreground: 200 15% 6%;
-  --muted: 200 10% 18%;
-  --muted-foreground: 200 6% 58%;
-  --success: 142 55% 45%;
-  --warning: 32 88% 55%;
-  --danger: 0 68% 55%;
-  --destructive: 0 68% 55%;
-  --destructive-foreground: 45 12% 92%;
-  --border: 200 8% 24%;
-  --input: 200 10% 15%;
-  --ring: 174 68% 42%;
-  --radius: 6px;
+  /* ─── Dell 1996 palette ─── */
+  --background: 0 0% 100%;          /* canvas: white */
+  --foreground: 0 0% 0%;            /* ink: black */
+  --card: 0 0% 100%;                /* ribbon-card title bar: white */
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --primary: 356 82% 51%;           /* Dell red #e91d2a */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 45 98% 52%;          /* Dell yellow (sticker) #fcc20f */
+  --secondary-foreground: 0 0% 0%;
+  --accent: 272 62% 40%;            /* Dell purple #6a26a4 */
+  --accent-foreground: 0 0% 100%;
+  --muted: 0 0% 95%;
+  --muted-foreground: 0 0% 30%;
+  --success: 87 34% 40%;
+  --warning: 45 98% 40%;
+  --danger: 356 82% 51%;
+  --destructive: 356 82% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 0%;                /* frame-ink: hairlines are always black */
+  --input: 0 0% 100%;
+  --ring: 356 82% 51%;
+  --radius: 0px;                    /* rounded.none — universal in this system */
+  --link: 240 100% 47%;             /* classic Mosaic/Netscape blue #0000ee */
 
-  --bevel-hi-a: 0.08;
-  --bevel-lo-a: 0.55;
+  /* Ribbon-card tint family — one per "product line" (section) */
+  --tint-olive: 58 59% 35%;
+  --tint-sage: 75 23% 66%;
+  --tint-salmon: 0 54% 66%;
+  --tint-peach: 23 73% 63%;
+  --tint-lime: 87 34% 74%;
+  --tint-sky: 203 29% 69%;
+  --tint-steel: 198 18% 70%;
+  --tint-periwinkle: 230 58% 71%;
 
-  --dracula-bg: var(--card);
-  --dracula-current: var(--muted);
-  --dracula-foreground: var(--card-foreground);
-  --dracula-comment: var(--muted-foreground);
-  --dracula-cyan: var(--primary);
-  --dracula-green: var(--success);
-  --dracula-orange: var(--accent);
-  --dracula-pink: var(--accent);
-  --dracula-purple: var(--primary);
-  --dracula-red: var(--danger);
-  --dracula-yellow: var(--accent);
-
-  /* Code blocks stay a fixed dark surface regardless of site theme — the
-     Prism "dracula" token colors are light-on-dark and unreadable otherwise. */
+  /* Code blocks keep a fixed dark surface — Prism "dracula" token colors are
+     light-on-dark and unreadable on the period-accurate white/black page. */
   --code-bg: 231 15% 18%;
   --code-border: 232 14% 31%;
   --code-fg: 60 30% 96%;
   --code-accent: 135 94% 65%;
-}
 
-.light {
-  --background: 43 22% 92%;
-  --foreground: 0 0% 9%;
-  --card: 0 0% 76%;
-  --card-foreground: 0 0% 9%;
-  --popover: 43 22% 96%;
-  --popover-foreground: 0 0% 9%;
-  --primary: 180 100% 25%;
-  --primary-foreground: 43 30% 97%;
-  --secondary: 0 0% 75%;
-  --secondary-foreground: 0 0% 9%;
-  --accent: 32 92% 42%;
-  --accent-foreground: 43 30% 97%;
-  --muted: 40 12% 85%;
-  --muted-foreground: 30 8% 38%;
-  --success: 142 76% 32%;
-  --warning: 32 95% 40%;
-  --danger: 0 72% 45%;
-  --destructive: 0 72% 45%;
-  --destructive-foreground: 43 30% 97%;
-  --border: 0 0% 52%;
-  --input: 40 14% 88%;
-  --ring: 180 100% 25%;
-
-  --bevel-hi-a: 0.65;
-  --bevel-lo-a: 0.28;
-
+  /* Legacy alias layer — components still reference these "dracula-*" names
+     from an earlier theme; point them at the tokens above instead of
+     re-touching every component that reads them. */
   --dracula-bg: var(--card);
   --dracula-current: var(--muted);
   --dracula-foreground: var(--card-foreground);
   --dracula-comment: var(--muted-foreground);
-  --dracula-cyan: var(--primary);
+  --dracula-cyan: var(--accent);
   --dracula-green: var(--success);
-  --dracula-orange: var(--accent);
-  --dracula-pink: var(--accent);
-  --dracula-purple: var(--primary);
+  --dracula-orange: var(--secondary);
+  --dracula-pink: var(--primary);
+  --dracula-purple: var(--accent);
   --dracula-red: var(--danger);
-  --dracula-yellow: var(--accent);
+  --dracula-yellow: var(--secondary);
+}
+
+/* ─── Dark mode — not part of the 1996 spec (there was no such thing), but a
+   polarity-flip of the same tokens: light stays the default, .dark is an
+   opt-in override toggled by ThemeToggle. Ribbon-card tints are deliberately
+   left unchanged — they're colorful chips either way, see the .tint-* ink
+   rule below for why their text always stays black. ─── */
+.dark {
+  --background: 0 0% 7%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 11%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 11%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 356 85% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 45 98% 55%;
+  --secondary-foreground: 0 0% 0%;
+  --accent: 272 55% 62%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 0 0% 16%;
+  --muted-foreground: 0 0% 68%;
+  --success: 87 30% 55%;
+  --warning: 45 90% 55%;
+  --danger: 356 85% 58%;
+  --destructive: 356 85% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 88%;
+  --input: 0 0% 14%;
+  --ring: 356 85% 58%;
+  --link: 213 90% 68%;
 }
 
 @theme inline {
-  --font-sans: 'Silkscreen', 'JetBrains Mono', ui-monospace, monospace;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* Three system-stack families, no webfonts — all three are OS defaults. */
+  --font-display: "Arial Black", Arial, "Helvetica Neue", sans-serif;
+  --font-sans: Helvetica, Arial, "Helvetica Neue", sans-serif;
+  --font-mono: "Times New Roman", Times, Georgia, serif; /* body copy, per spec */
+  --font-code: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; /* actual code only */
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -130,168 +136,109 @@
 
 /* ─── Base ─── */
 @layer base {
-  * { @apply border-border; cursor: none; }
+  * { @apply border-border; }
   html { scroll-behavior: smooth; }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    line-height: 1.7;
+    font-family: var(--font-mono); /* Times New Roman body copy */
+    font-size: 14px;
+    line-height: 1.4;
   }
 
   h1, h2, h3, h4 {
-    font-family: var(--font-sans);
-    font-weight: 400;
+    font-family: var(--font-sans); /* Helvetica Bold */
+    font-weight: 700;
     letter-spacing: 0;
   }
 
+  a {
+    color: hsl(var(--link));
+  }
+
   ::selection {
-    background: hsl(var(--primary) / 0.3);
+    background: hsl(var(--primary) / 0.25);
     color: hsl(var(--foreground));
   }
 }
 
-/* ─── Custom Cursor ─── */
-.cursor-dot {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: hsl(var(--primary));
-  border: 1px solid hsl(var(--background));
-  border-radius: 0;
-  pointer-events: none;
-  z-index: 99999;
-  transition: width 0.15s, height 0.15s, transform 0.15s, background 0.15s;
+/* ─── Retro pointer — a period-appropriate chunky black/white cursor instead
+   of the plain system arrow/hand. Bitmap-style (hard-edged, no anti-alias
+   blur to speak of at this size), so it reads as an old-OS cursor on both
+   light and dark backgrounds thanks to its own white outline. ─── */
+body {
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KPHBhdGggZD0iTTQgMiBMNCAyNiBMMTAgMjAgTDE0IDI5IEwxOCAyNyBMMTQgMTggTDIzIDE4IFoiIGZpbGw9IiMwMDAwMDAiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=") 4 2, auto;
 }
 
-.cursor-ring {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 2px solid hsl(var(--primary) / 0.5);
-  border-radius: 0;
-  pointer-events: none;
-  z-index: 99998;
-  transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.15s;
+a,
+button,
+select,
+label,
+[role="button"],
+.brutal-button,
+.nav-link,
+input[type="checkbox"],
+input[type="radio"],
+input[type="submit"] {
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj4KPHJlY3QgeD0iMTIiIHk9IjQiIHdpZHRoPSI2IiBoZWlnaHQ9IjE1IiByeD0iMiIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8cmVjdCB4PSI5IiB5PSIxNyIgd2lkdGg9IjE3IiBoZWlnaHQ9IjExIiByeD0iMyIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIvPgo8L3N2Zz4=") 15 4, pointer;
 }
 
-.cursor-dot.hovering {
-  width: 14px;
-  height: 14px;
-  background: hsl(var(--accent));
+/* Text-editable fields keep the native text cursor instead of inheriting
+   the arrow/hand above (cursor is an inherited property). */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="search"],
+textarea {
+  cursor: text;
 }
 
-.cursor-ring.hovering {
-  width: 0;
-  height: 0;
-  border-color: transparent;
+button:disabled,
+input:disabled,
+textarea:disabled {
+  cursor: not-allowed;
 }
 
-.cursor-trail {
-  position: fixed;
-  width: 4px;
-  height: 4px;
-  pointer-events: none;
-  z-index: 99997;
-  opacity: 0.6;
+/* ─── Page frame — the literal black border around the whole viewport ─── */
+.page-frame {
+  border: 8px solid hsl(var(--foreground));
+  min-height: 100vh;
 }
 
-/* ─── Background Layers ─── */
-.animated-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
+@media (max-width: 767px) {
+  .page-frame { border-width: 4px; }
+}
+@media (max-width: 480px) {
+  .page-frame { border-width: 2px; }
 }
 
-.animated-bg .noise {
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.035;
+/* ─── Top banner ─── */
+.top-banner {
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
 }
 
-.animated-bg .grid-layer {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-.animated-bg .glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  will-change: transform;
-}
-
-.animated-bg .glow-1 {
-  width: 600px;
-  height: 600px;
-  background: hsl(var(--primary) / 0.07);
-  top: 10%;
-  left: 15%;
-  animation: float-1 25s ease-in-out infinite;
-}
-
-.animated-bg .glow-2 {
-  width: 500px;
-  height: 500px;
-  background: hsl(var(--accent) / 0.05);
-  bottom: 20%;
-  right: 10%;
-  animation: float-2 30s ease-in-out infinite;
-}
-
-.animated-bg .glow-3 {
-  width: 400px;
-  height: 400px;
-  background: hsl(var(--secondary) / 0.04);
-  top: 50%;
-  left: 50%;
-  animation: float-3 20s ease-in-out infinite;
-}
-
-@keyframes float-1 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(80px, -50px); }
-  66% { transform: translate(-40px, 60px); }
-}
-@keyframes float-2 {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(-60px, 40px); }
-  66% { transform: translate(50px, -70px); }
-}
-@keyframes float-3 {
-  0%, 100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(calc(-50% + 50px), calc(-50% - 40px)); }
-}
-
-/* ─── Section headers ─── */
+/* ─── Section headers (display eyebrow) ─── */
 .section-header {
   display: flex;
   align-items: baseline;
   gap: 16px;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
   position: relative;
 }
 
 .section-header h2 {
-  font-family: var(--font-sans);
-  font-size: 24px;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
   letter-spacing: 0;
+  text-transform: uppercase;
   color: hsl(var(--foreground));
 }
 
 .section-header .index {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 12px;
   color: hsl(var(--primary));
   font-weight: 700;
@@ -301,71 +248,110 @@
   content: "";
   flex: 1;
   height: 2px;
-  background: repeating-linear-gradient(
-    90deg,
-    hsl(var(--border)) 0,
-    hsl(var(--border)) 4px,
-    transparent 4px,
-    transparent 8px
-  );
+  background: hsl(var(--foreground));
   margin-left: 16px;
 }
 
-/* ─── Cards (skeuomorphic raised panel) ─── */
+/* ─── Ribbon card — the brand's signature component ─── */
 .war-card {
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
+  border-radius: 0;
   padding: 24px;
   position: relative;
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, var(--bevel-hi-a)),
-    inset -1px -1px 0 rgba(0, 0, 0, var(--bevel-lo-a)),
-    3px 3px 0 hsl(var(--border));
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: none;
+  transition: border-color 0.15s;
 }
 
 .war-card:hover {
-  border-color: hsl(var(--primary) / 0.5);
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, var(--bevel-hi-a)),
-    inset -1px -1px 0 rgba(0, 0, 0, var(--bevel-lo-a)),
-    4px 4px 0 hsl(var(--primary) / 0.35);
-  transform: translate(-1px, -1px);
+  border-color: hsl(var(--primary));
 }
 
-/* ─── Buttons (skeuomorphic push button) ─── */
+/* Ribbon-card tint variants — cycle these across repeated cards/sections.
+   The tints are always mid-tone pastels in both themes, so text sitting
+   directly on them (not in its own opaque chip) is pinned to black rather
+   than following --foreground, which would go off-white in dark mode and
+   wash out against a light tint. */
+.tint-olive,
+.tint-sage,
+.tint-salmon,
+.tint-peach,
+.tint-lime,
+.tint-sky,
+.tint-steel,
+.tint-periwinkle {
+  color: #000;
+}
+.tint-olive { background: hsl(var(--tint-olive)); }
+.tint-sage { background: hsl(var(--tint-sage)); }
+.tint-salmon { background: hsl(var(--tint-salmon)); }
+.tint-peach { background: hsl(var(--tint-peach)); }
+.tint-lime { background: hsl(var(--tint-lime)); }
+.tint-sky { background: hsl(var(--tint-sky)); }
+.tint-steel { background: hsl(var(--tint-steel)); }
+.tint-periwinkle { background: hsl(var(--tint-periwinkle)); }
+
+/* ─── Buttons — flat, hard-edged, no radius ─── */
 .brutal-button {
-  background: hsl(var(--card));
-  color: hsl(var(--foreground));
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  border: 1px solid hsl(var(--foreground));
+  border-radius: 0;
   padding: 8px 16px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 0.02em;
-  font-weight: 600;
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, var(--bevel-hi-a)),
-    inset -1px -1px 0 rgba(0, 0, 0, var(--bevel-lo-a)),
-    2px 2px 0 hsl(var(--border));
-  transition: all 0.15s ease;
+  font-weight: 700;
+  text-transform: uppercase;
+  box-shadow: none;
+  transition: background 0.1s, color 0.1s;
 }
 
 .brutal-button:hover {
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
   border-color: hsl(var(--primary));
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, var(--bevel-hi-a)),
-    inset -1px -1px 0 rgba(0, 0, 0, var(--bevel-lo-a)),
-    3px 3px 0 hsl(var(--primary) / 0.4);
-  transform: translate(-1px, -1px);
 }
 
 .brutal-button:active {
-  transform: translate(1px, 1px);
-  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.35);
+  background: hsl(var(--foreground) / 0.8);
+}
+
+/* shadcn Button's variant="outline"/"ghost" classes (bg-background, border)
+   should read as the white-fill secondary button per spec, not fight the
+   black-fill default above. */
+.brutal-button.bg-background,
+.brutal-button.hover\:bg-accent {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+.brutal-button.bg-background:hover,
+.brutal-button.hover\:bg-accent:hover {
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+/* ─── Top-banner nav links (white-on-black, not the white-page brutal-button) ─── */
+.nav-link {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: hsl(var(--background));
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 8px 12px;
+  transition: background 0.1s, color 0.1s;
+}
+.nav-link:hover {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+.nav-link.active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 /* ─── Status indicator ─── */
@@ -374,69 +360,70 @@
   align-items: center;
   gap: 8px;
   font-size: 11px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-weight: 700;
   letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: hsl(var(--primary));
 }
 
 .status-online::before {
   content: "";
-  width: 6px;
-  height: 6px;
-  background: hsl(var(--success));
-  animation: pulse-glow 2s ease-in-out infinite;
-  box-shadow: 0 0 8px hsl(var(--success) / 0.6);
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 1; box-shadow: 0 0 8px hsl(var(--success) / 0.6); }
-  50% { opacity: 0.4; box-shadow: 0 0 2px hsl(var(--success) / 0.2); }
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
 }
 
 /* ─── Tech tags ─── */
 .tech-tag {
   display: inline-block;
   padding: 4px 10px;
-  background: hsl(var(--muted));
+  background: hsl(var(--background));
   border: 1px solid hsl(var(--border));
-  border-radius: calc(var(--radius) - 2px);
-  font-family: var(--font-mono);
+  border-radius: 0;
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 0.02em;
-  color: hsl(var(--muted-foreground));
-  font-weight: 600;
-  transition: all 0.15s ease;
+  color: hsl(var(--foreground));
+  font-weight: 700;
+  transition: background 0.1s, color 0.1s;
 }
 
 .tech-tag:hover {
   border-color: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
   background: hsl(var(--primary));
-  box-shadow: 2px 2px 0 hsl(var(--border));
-  transform: translate(-1px, -1px);
 }
 
-/* ─── Terminal log ─── */
+/* ─── Terminal log (experience entries) ─── */
 .terminal-log {
   font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 2;
-  color: hsl(var(--muted-foreground));
+  font-size: 13px;
+  line-height: 1.5;
+  /* No own color — always sits on a .tint-* body, which pins text to black. */
 }
 .terminal-log .tag {
+  font-family: var(--font-sans);
   color: hsl(var(--primary));
   font-weight: 700;
 }
 
-/* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: hsl(var(--muted)); }
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
-  border: 1px solid hsl(var(--background));
+/* ─── Footer band ─── */
+.footer-band {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border-top: 1px solid hsl(var(--border));
+  font-family: var(--font-mono);
+  font-size: 12px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.6);
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: hsl(var(--background)); }
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--foreground));
+  border: 2px solid hsl(var(--background));
 }
 
 /* ─── Mobile sidebar ─── */
@@ -449,7 +436,7 @@
   }
 }
 
-/* ─── Markdown Editor ─── */
+/* ─── Markdown Editor (admin authoring tool — kept legible, not period-styled) ─── */
 .markdown-editor-wrapper .EasyMDEContainer {
   background: hsl(var(--dracula-bg));
   border: 1px solid hsl(var(--border));
@@ -457,7 +444,7 @@
 .markdown-editor-wrapper .EasyMDEContainer .CodeMirror {
   background: hsl(var(--dracula-bg));
   color: hsl(var(--dracula-foreground));
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 13px;
   line-height: 1.7;
   border: none;

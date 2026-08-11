@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import dynamic from "next/dynamic"
 import "easymde/dist/easymde.min.css"
 
@@ -23,7 +23,7 @@ export default function MarkdownEditor({ value, onChange }: MarkdownEditorProps)
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full min-h-[500px] bg-dracula-bg text-dracula-foreground border border-border p-4 font-mono text-xs resize-none focus:outline-none focus:border-primary rounded"
+        className="w-full min-h-[500px] bg-dracula-bg text-dracula-foreground border border-border p-4 font-code text-xs resize-none focus:outline-none focus:border-primary"
         placeholder="Write your content in Markdown..."
       />
     )
